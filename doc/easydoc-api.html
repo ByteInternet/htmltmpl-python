@@ -1,0 +1,239 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+  <html>
+    <head>
+      <title>easydoc: documentation</title>
+      <meta name="author"
+            content="Tomas Styblo (tripie@cpan.org)"></meta>
+      <meta name="keywords" content="Python,module,easydoc"></meta>
+      <meta name="description" content="A module to autogenerate HTML documentation from docstrings."></meta>
+      <style type="text/css">
+        <!--
+body {
+  font-family: "Helvetica CE", "Arial CE", Helvetica, Arial, sans-serif;
+  background-color: #d8d0a4;
+  color: black;
+}
+
+a {
+  color: red;
+  font-weight: bold;
+}
+
+.methodbg {
+  background-color: #d8e0d4;
+}
+        -->        
+      </style>
+    </head>
+    <body>
+      <h1>easydoc</h1>
+
+      <!-- module info -->
+
+      <p><strong>A module to autogenerate HTML documentation from docstrings.</strong></p>
+      <p>
+        <strong>
+          VERSION: 1.01          <br></br>
+          AUTHOR: Tomas Styblo          (<a href="mailto:tripie@cpan.org">tripie@cpan.org</a>)
+          <br></br>
+          WEBSITE: <a href="http://htmltmpl.sourceforge.net/">http://htmltmpl.sourceforge.net/</a>
+          <br></br>
+          LICENSE: <a href="http://www.gnu.org/licenses/gpl.html">GNU GPL</a>
+        </strong>
+      </p>
+
+        <p>The documentation of this module can be found in 'doc' directory of the
+     distribution tarball or at the website of this package.
+     Latest versions of this module are also available at that website.</p>
+        <p>You can use and redistribute this module under conditions of the
+     GNU General Public License that can be found either at
+     <a href="http://www.gnu.org/">http://www.gnu.org/</a> or in file "LICENSE" contained in the
+     distribution tarball of this module.</p>
+        <p>Copyright (c) 2001 Tomas Styblo, tripie@cpan.org
+     Prague, the Czech Republic</p>
+      <hr></hr>
+
+      <!-- module requirements -->
+
+        <p><strong>REQUIRES:</strong></p>
+          <ul>
+              <li>htmltmpl (<a href="http://htmltmpl.sourceforge.net/">http://htmltmpl.sourceforge.net/</a>)</li>
+          </ul>
+        <hr></hr>
+
+      <!-- table of functions -->
+
+
+      <!-- table of classes and methods -->
+
+        <p><strong>CLASSES:</strong></p>
+        <ul>
+            <li>
+              <p>
+                <a href="#class-Easydoc">Easydoc</a>:
+Autogenerate documentation from docstrings.              </p>
+                <table border="0" cellpadding="3">
+                    <tr>
+                      <td>
+                          &nbsp; &nbsp; &nbsp; &nbsp;
+                      </td>
+                      <td class="methodbg">
+                        <a href="#method-Easydoc_process">
+process</a>
+                        &nbsp; &nbsp;
+                      </td>
+                      <td>Create documentation for a module.</td>
+                    </tr>
+                    <tr>
+                      <td>
+                          &nbsp; &nbsp; &nbsp; &nbsp;
+                      </td>
+                      <td class="methodbg">
+                        <a href="#method-Easydoc___init__">
+__init__</a>
+                        &nbsp; &nbsp;
+                      </td>
+                      <td>Constructor.</td>
+                    </tr>
+                </table>
+            </li>
+        </ul>
+        <hr></hr>
+
+
+      <!-- documentation of functions -->
+
+
+      <hr></hr>
+
+      <!-- documentation of classes -->
+
+
+        
+        <!-- class: Easydoc -->
+        
+        <h2>CLASS: <a name="class-Easydoc"></a>Easydoc</h2>
+        <p><strong>Autogenerate documentation from docstrings.</strong></p>
+          <p>This class provides all the functionality of easydoc. You can
+         subclass it and override its processing methods module(),
+         mclass() and method() to customize its behaviour.</p>
+          <p>You also can easily use your own template to modify the output
+         in any way you need. Output colors can be customized via
+         parameters.</p>
+
+        <!-- table of methods of class Easydoc -->
+
+          <p><strong>METHODS:</strong></p>
+          <table border="0" cellpadding="3">
+              <tr>
+                <td>&nbsp; &nbsp; &nbsp; &nbsp;</td>
+                <td class="methodbg">
+                  <a href="#method-Easydoc_process">
+process</a>
+                  &nbsp; &nbsp;
+                </td>
+                <td>Create documentation for a module.</td>
+              </tr>
+              <tr>
+                <td>&nbsp; &nbsp; &nbsp; &nbsp;</td>
+                <td class="methodbg">
+                  <a href="#method-Easydoc___init__">
+__init__</a>
+                  &nbsp; &nbsp;
+                </td>
+                <td>Constructor.</td>
+              </tr>
+          </table>
+        <hr></hr>
+
+        <!-- documentation of methods of class Easydoc -->
+
+          
+          <!-- method process -->
+          
+          <h3>METHOD: <a name="method-Easydoc_process"></a>
+process()</h3>
+          <p>
+            <strong><em>Create documentation for a module.</em></strong>
+            <small>(class
+              <a href="#class-Easydoc">Easydoc</a>)
+            </small>
+          </p>
+   
+            <p><strong>RETURN VALUE:</strong></p>
+            <p>String containing the resulting HTML documentation.</p>
+
+          <!-- parameters of method process -->
+
+          <p><strong>PARAMETERS:</strong></p>
+          <pre>process(module, bgcolor, textcolor, linkcolor, with_hidden=0)</pre>                
+                
+            <ul>
+                <li>
+                  <p><strong>module</strong></p>
+                  <p><strong><em>Filename of the module to document.</em></strong></p>
+                    <p>The module must be specified as filename. The module is not
+             imported nor executed, only parsed.</p>
+                </li>
+                <li>
+                  <p><strong>bgcolor</strong></p>
+                  <p><strong><em>Set background color.</em></strong></p>
+                    <p>Accepts any valid CSS color value.</p>
+                </li>
+                <li>
+                  <p><strong>textcolor</strong></p>
+                  <p><strong><em>Set text color.</em></strong></p>
+                    <p>Accepts any valid CSS color value.</p>
+                </li>
+                <li>
+                  <p><strong>linkcolor</strong></p>
+                  <p><strong><em>Set color of hyperlinks.</em></strong></p>
+                    <p>Accepts any valid CSS color value.</p>
+                </li>
+                <li>
+                  <p><strong>with_hidden</strong></p>
+                  <p><strong><em>Do not exclude hidden sections from output.</em></strong></p>
+                    <p>This optional parameter can be used to force inclusion of
+             hidden sections in the resulting documentation. Hidden sections
+             are by default not included.</p>
+                </li>
+            </ul>
+          <hr></hr>
+
+          
+          <!-- method __init__ -->
+          
+          <h3>METHOD: <a name="method-Easydoc___init__"></a>
+__init__()</h3>
+          <p>
+            <strong><em>Constructor.</em></strong>
+            <small>(class
+              <a href="#class-Easydoc">Easydoc</a>)
+            </small>
+          </p>
+
+          <!-- parameters of method __init__ -->
+
+          <p><strong>PARAMETERS:</strong></p>
+          <pre>__init__(template, debug=0)</pre>                
+                
+            <ul>
+                <li>
+                  <p><strong>template</strong></p>
+                  <p><strong><em>String containing template data.</em></strong></p>
+                </li>
+                <li>
+                  <p><strong>debug</strong></p>
+                  <p><strong><em>Enable or disable debugging messages.</em></strong></p>
+                    <p>This optional parameter can be used to enable or disable debugging
+             messages which are printed to stderr. By default debugging
+             messages are disabled.</p>
+                </li>
+            </ul>
+          <hr></hr>
+
+        <hr></hr>
+
+    </body>
+  </html>

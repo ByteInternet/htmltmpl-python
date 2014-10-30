@@ -1,0 +1,34 @@
+<html>
+    <head>
+        <title><TMPL_VAR title></title>
+    </head>    
+    <body>
+        <p>
+        OK = IF true, IF false, UNLESS true, UNLESS false
+        </p>
+        <TMPL_IF true>
+            <h1>++ IF true</h1>
+        <TMPL_ELSE>
+            <h1>-- IF true</h1>
+        </TMPL_IF>
+
+        <TMPL_IF false>
+            <h1>-- IF false</h1>
+        <TMPL_ELSE>
+            <h1>++ IF false</h1>
+        </TMPL_IF>
+                
+        <TMPL_UNLESS true>
+            <h1>-- UNLESS true</h1>
+        <TMPL_ELSE>
+            <h1>++ UNLESS true</h1>
+        </TMPL_UNLESS>
+
+        <TMPL_UNLESS false>
+            <h1>++ UNLESS false</h1>
+        <TMPL_ELSE>
+            <h1>-- UNLESS false</h1>
+        </TMPL_UNLESS>
+                               
+    </body>
+</html>

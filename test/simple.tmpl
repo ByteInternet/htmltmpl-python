@@ -1,0 +1,20 @@
+<html>
+    <head>
+        <title><TMPL_VAR title></title>
+    </head>    
+    <body>
+        <h1>Total: 8</h1>
+        <br /><br />
+        ### Comment should be removed.
+        <h1>1: <TMPL_VAR greeting></h1>   ### Comment should be removed.
+        <h1>2: <TMPL_VAR NAME="greeting"></h1>
+        <h1>3: <TMPL_VAR NAME=greeting></h1>
+        <h1>4: <!-- TMPL_VAR greeting --></h1>
+        <h1>5: <!-- TMPL_VAR NAME="greeting" --></h1>
+        <h1>6: <!-- TMPL_VAR NAME="greeting" ESCAPE="NONE" --></h1>
+        <h1>7: <TMPL_VAR NAME="greeting" ESCAPE=NONE></h1>
+        <h1>8: <TMPL_VAR greeting ESCAPE=NONE></h1>
+        <TMPL_VAR unused>
+        | <TMPL_VAR greeting> |   ### The spaces should be preserved.
+    </body>
+</html>

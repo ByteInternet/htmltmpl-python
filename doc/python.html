@@ -1,0 +1,377 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+  <head>
+    <title>htmltmpl templating engine</title>
+    <meta name="author" content="Tomas Styblo (tripie@cpan.org)"></meta>
+    <link rel="StyleSheet" type="text/css" href="main.css"></link>
+  </head>
+  <body>
+
+    <table width="100%" border="2" cellspacing="4" cellpadding="8">
+      <tr>
+        <td align="center">
+          <span class="title">
+            <strong>
+              htmltmpl: templating engine for separation of code and HTML
+            </strong>
+          </span>
+        </td>
+      </tr>
+    </table>
+    
+    <p></p>
+    
+    <table border="0" cellspacing="0" cellpadding="16">
+      <tr>
+
+
+        <!-- menu on the left -->
+
+
+        <td valign="top">
+          <ul>
+            <li><p><a href="http://htmltmpl.sourceforge.net/">HOMEPAGE</a></p></li>
+            <li><p><a href="index.html">OVERVIEW</a></p></li>
+            <li><p><a href="lang.html">THE LANGUAGE</a></p></li>
+            <li><p><a href="python-api.html">API DOCS</a></p></li>
+            <li><p><a href="gettext.html">GETTEXT SUPPORT</a></p></li>
+            <li><p><a href="python.html">PYTHON VERSION</a></p></li>
+            <li><p><a href="easydoc.html">PYTHON EASYDOC</a></p></li>
+            <li><p><a href="php.html">PHP VERSION</a></p></li>
+            <li><p><a href="http://lists.sourceforge.net/lists/listinfo/htmltmpl-support">MAILING LIST</a></p></li>
+            <li><p><a href="http://sourceforge.net/cvs/?group_id=34229">PUBLIC CVS</a></p></li>
+            <li><p><a href="http://sam.tregar.com/html_template.html">HTML::TEMPLATE</a></p></li>
+            <li><p><a href="http://sourceforge.net">
+                  <img src="http://sourceforge.net/sflogo.php?group_id=34229"
+                       width="88" height="31" class="noborder"
+                       alt="SourceForge Logo"></img></a></p></li>
+          </ul>
+        </td>
+        
+
+        <!-- the text right to the menu -->
+
+   
+        <td valign="top">
+          
+          <p>
+            This is the Python version of htmltmpl. This page contains
+            some basic information about the module and examples that
+            illustrate its usage.
+          </p>
+          
+          <p>
+            <strong>
+            A complete documentation of the module's API can be found
+              <a href="python-api.html">here</a>.
+            </strong>
+            It contains description of all public classes and methods which
+            the module provides. The documentation is automatically
+            generated from docstrings in source file of the module by my
+            application <a href="easydoc.html">easydoc</a>, which uses
+            htmltmpl and is included in the htmltmpl distribution.
+          </p>
+
+          <p>
+            The module should work on all platforms supported by Python.
+            The module is supported by its author only on the UNIX
+            platform using Python versions 2.1 or newer.
+          </p>
+
+          <p>
+            Releases 1.15 and up are vastly redesigned to be multi-task safe
+            and more flexible. The design and interface
+            was completely changed to be much more object oriented and
+            more maintainable. The downside of this change is that the
+            interface is no longer similar to that of HTML::Template.
+         </p>
+         <p>
+            The module is multi-task safe in terms of properly synchronized
+            accesses to the precompiled templates that are loaded from and
+            saved to disk. However, instances of any of its classes should
+            <strong>NOT</strong> be shared by multiple threads.
+            The only exception are instances of the <em>Template</em> class,
+            which can be shared by multiple threads.
+          </p>
+          <p>
+            It would be possible to protect all critical data
+            and sections by locks to achieve complete thread safeness, but
+            the resulting overhead probably is not worth the effort.
+            I hardly can imagine a situation in which someone would want
+            or need to share the instances among multiple threads.
+          </p>
+
+          <ul>
+            <li><a href="python-api.html">API documentation</a></li>
+            <li><a href="#examples">Examples</a>
+              <ul>
+                <li><a href="#example-simple">simple</a></li>
+                <li><a href="#example-MySQL">MySQL driven</a></li>
+              </ul>
+            </li>
+          </ul>
+          
+        </td>
+      </tr>
+    </table>
+
+
+    <!-- end of the top part -->
+
+    <!-- examples -->
+
+    <hr></hr>
+    <h2><a name="examples"></a>Examples</h2>
+    
+    <p>
+      Source files of all these examples are available in 'doc/examples'
+      directory of the distribution. Files from the regression test
+      suite (the 'test' directory) can also serve as examples.
+    </p>
+
+    <p>
+      <small>
+        FAQ: Emacs (the 'htmlize-file' command) is used to colorify
+        the source code examples.
+      </small>
+    </p>
+
+    <h3><a name="example-simple"></a>simple:</h3>
+
+    <h4>template.tmpl</h4>
+    <pre>
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;title&gt;<span class="red">&lt;TMPL_VAR title&gt;</span>&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;h1&gt;Customers:&lt;/h1&gt;
+        &lt;p&gt;
+            Total: <span class="red">&lt;TMPL_VAR Customers&gt;</span> 
+        &lt;/p&gt;
+
+        <span class="red">### this comment will be removed</span>
+
+        &lt;table&gt;
+            <span class="red">&lt;TMPL_LOOP Customers&gt;</span>
+                &lt;tr&gt;
+                    <span class="red">&lt;TMPL_IF new&gt;</span>
+                        &lt;td&gt;new customer&lt;/td&gt; 
+                    <span class="red">&lt;TMPL_ELSE&gt;</span>
+                        &lt;td&gt;old customer&lt;/td&gt;
+                    <span class="red">&lt;/TMPL_IF&gt;</span>
+                    &lt;td&gt;<span class="red">&lt;TMPL_VAR __PASS__&gt;</span>&lt;/td&gt;
+                    &lt;td&gt;<span class="red">&lt;TMPL_VAR name&gt;</span>&lt;/td&gt;
+                    &lt;td&gt;<span class="red">&lt;TMPL_VAR city&gt;</span>&lt;/td&gt;
+                &lt;/tr&gt;
+            <span class="red">&lt;/TMPL_LOOP&gt;</span>
+        &lt;/table&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+    </pre>
+          
+    <h4>template.py</h4>
+    <pre>
+<span class="keyword">from</span> htmltmpl <span class="keyword">import</span> TemplateManager, TemplateProcessor
+
+<span class="comment"># Compile or load already precompiled template.
+</span>template = TemplateManager().prepare(&quot;<span class="string">template.tmpl</span>&quot;)
+tproc = TemplateProcessor()
+
+<span class="comment"># Set the title.
+</span>tproc.set(&quot;<span class="string">title</span>&quot;, &quot;<span class="string">Our customers</span>&quot;)
+
+<span class="comment"># Create the 'Customers' loop.
+</span>customers = []
+
+<span class="comment"># First customer.
+</span>customer = {}
+customer[&quot;<span class="string">name</span>&quot;] = &quot;<span class="string">Joe Sixpack</span>&quot;
+customer[&quot;<span class="string">city</span>&quot;] = &quot;<span class="string">Los Angeles</span>&quot;
+customer[&quot;<span class="string">new</span>&quot;] = 0
+customers.append(customer)
+
+<span class="comment"># Second customer.
+</span>customer = {}
+customer[&quot;<span class="string">name</span>&quot;] = &quot;<span class="string">Paul Newman</span>&quot;
+customer[&quot;<span class="string">city</span>&quot;] = &quot;<span class="string">New York</span>&quot;
+customer[&quot;<span class="string">new</span>&quot;] = 1
+customers.append(customer)
+
+tproc.set(&quot;<span class="string">Customers</span>&quot;, customers)
+
+<span class="comment"># Print the processed template.
+</span><span class="keyword">print</span> tproc.process(template)
+    </pre>
+          
+    <h4>template.html</h4>
+    <pre>
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;title&gt;Our customers&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;h1&gt;Customers:&lt;/h1&gt;
+        &lt;p&gt;
+            Total: 2
+        &lt;/p&gt;
+
+
+
+        &lt;table&gt;
+            &lt;tr&gt;
+                    &lt;td&gt;old customer&lt;/td&gt;
+                &lt;td&gt;1&lt;/td&gt;
+                &lt;td&gt;Joe Sixpack&lt;/td&gt;
+                &lt;td&gt;Los Angeles&lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+                    &lt;td&gt;new customer&lt;/td&gt;
+                &lt;td&gt;2&lt;/td&gt;
+                &lt;td&gt;Paul Newman&lt;/td&gt;
+                &lt;td&gt;New York&lt;/td&gt;
+            &lt;/tr&gt;                
+        &lt;/table&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+    </pre>
+          
+
+
+    <!-- example: database driven -->
+    
+
+    <hr></hr>
+    <h3><a name="example-MySQL"></a>MySQL driven:</h3>       
+    
+    <h4>products.tmpl</h4>
+    <pre>
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;title&gt;<span class="red">&lt;TMPL_VAR title&gt;</span>&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+
+    &lt;h1&gt;Our products&lt;/h1&gt;
+
+    &lt;table&gt;
+        <span class="red">&lt;TMPL_LOOP Products&gt;</span>
+            &lt;tr&gt;
+                &lt;td&gt;<span class="red">&lt;TMPL_VAR id&gt;</span>&lt;/td&gt;
+                &lt;td&gt;<span class="red">&lt;TMPL_VAR name&gt;</span>&lt;/td&gt;
+            &lt;/tr&gt;
+        <span class="red">&lt;/TMPL_LOOP&gt;</span>
+    &lt;/table&gt;
+
+    &lt;/body&gt;
+&lt;/html&gt;
+    </pre>
+    
+    
+    <h4>products.py</h4>
+    <pre>
+<span class="keyword">import</span> MySQLdb
+<span class="keyword">import</span> MySQLdb.cursors
+<span class="keyword">from</span> htmltmpl <span class="keyword">import</span> TemplateManager, TemplateProcessor
+
+<span class="comment"># Define some constants.
+</span>DB = &quot;<span class="string">test</span>&quot;
+USER = &quot;&quot;
+PASSWD = &quot;&quot;
+TABLE = &quot;&quot;&quot;<span class="string">
+
+    CREATE TABLE IF NOT EXISTS Products (
+        id            INTEGER        NOT NULL AUTO_INCREMENT,
+        name          VARCHAR(255)   NOT NULL,
+        CONSTRAINT pkey_id
+            PRIMARY KEY(id)
+    )
+    
+</span>&quot;&quot;&quot;
+
+template = TemplateManager().prepare(&quot;<span class="string">products.tmpl</span>&quot;)
+tproc = TemplateProcessor()
+                
+<span class="comment"># Assign a string to template variable named &quot;title&quot;.
+</span>tproc.set(&quot;<span class="string">title</span>&quot;, &quot;<span class="string">Our products</span>&quot;)
+        
+<span class="comment"># Connect the database. Create the table.
+</span>db = MySQLdb.connect(db = DB, user = USER, passwd = PASSWD,
+                     cursorclass = MySQLdb.cursors.DictCursor)
+create_cur = db.cursor()
+create_cur.execute(TABLE)
+create_cur.close()
+
+<span class="comment"># Insert some data.
+</span>insert_cur = db.cursor()
+insert_cur.executemany(&quot;&quot;&quot;<span class="string">
+
+    INSERT INTO Products (name) VALUES (%(name)s)
+
+</span>&quot;&quot;&quot;, [
+    {&quot;<span class="string">name</span>&quot;: &quot;<span class="string">Seagate</span>&quot;},
+    {&quot;<span class="string">name</span>&quot;: &quot;<span class="string">Conner</span>&quot;},
+    {&quot;<span class="string">name</span>&quot;: &quot;<span class="string">Maxtor</span>&quot;}
+])
+insert_cur.close()
+
+
+<span class="comment"># Select the products.
+</span>products_cur = db.cursor()
+products_cur.execute(&quot;&quot;&quot;<span class="string">
+
+    SELECT id, name
+    FROM Products
+    
+</span>&quot;&quot;&quot;)
+
+<span class="comment"># Append product data in form of mappings (dictionaries) to the
+# products list.
+</span>products = []
+<span class="keyword">for</span> i <span class="keyword">in</span> range(products_cur.rowcount):
+    products.append(products_cur.fetchone())
+products_cur.close()
+db.close()
+
+<span class="comment"># Assign the products list to template loop identifier 'Products'.
+# NOTE: htmltmpl automatically converts all the values
+# to strings using str().
+</span>tproc.set(&quot;<span class="string">Products</span>&quot;, products)
+        
+<span class="comment"># Process the template and print the result.
+</span><span class="keyword">print</span> tproc.process(template)
+    </pre>
+
+    <h4>products.html</h4>
+
+    <pre>
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;title&gt;Our products&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+
+        &lt;h1&gt;Our products&lt;/h1&gt;
+
+        &lt;table&gt;
+                &lt;tr&gt;
+                    &lt;td&gt;1&lt;/td&gt;
+                    &lt;td&gt;Seagate&lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;tr&gt;
+                    &lt;td&gt;2&lt;/td&gt;
+                    &lt;td&gt;Conner&lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;tr&gt;
+                    &lt;td&gt;3&lt;/td&gt;
+                    &lt;td&gt;Maxtor&lt;/td&gt;
+                &lt;/tr&gt;
+        &lt;/table&gt;
+
+    &lt;/body&gt;
+&lt;/html&gt;
+    </pre>
+    
+  </body>
+</html>

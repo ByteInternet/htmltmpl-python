@@ -1,0 +1,41 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Free Software Foundation, Inc.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2001-11-25 21:45+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: ENCODING\n"
+
+#: standard input:23
+msgid "Pokusny"
+msgstr ""
+
+#: standard input:24
+msgid "retezec"
+msgstr ""
+
+#: standard input:25
+msgid ""
+"zkouska\n"
+"na vice radcich"
+msgstr ""
+
+#: standard input:26 standard input:27
+msgid "delsi dalsi [[ veta"
+msgstr ""
+
+#: standard input:28
+msgid "delsi vec zkouska]] pokus"
+msgstr ""
+
+#: standard input:29
+msgid "slovo"
+msgstr ""

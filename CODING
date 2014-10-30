@@ -1,0 +1,10 @@
+
+    Please follow this code style:
+    
+        Indent size is 4 spaces.
+        Use spaces instead of real tabs.
+        Never exceed maximum line width of 79 characters.
+        Use (extend) the test suite.
+        Function and variable naming style: cool_variable, cool_function
+        All function and variable names are in lowercase.
+        Class naming style: MyClass

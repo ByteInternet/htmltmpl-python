@@ -1,0 +1,43 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Free Software Foundation, Inc.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: htmltmpl 1.10\n"
+"POT-Creation-Date: 2001-11-25 21:45+0100\n"
+"PO-Revision-Date: 2001-11-25 22:23+0100\n"
+"Last-Translator: Tomas Styblo <tripie@cpan.org>\n"
+"Language-Team: en <tripie@cpan.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 7bit\n"
+
+#: standard input:23
+msgid "Pokusny"
+msgstr "Testing"
+
+#: standard input:24
+msgid "retezec"
+msgstr "string"
+
+#: standard input:25
+msgid ""
+"zkouska\n"
+"na vice radcich"
+msgstr ""
+"test\n"
+"on more rows"
+
+#: standard input:26 standard input:27
+msgid "delsi dalsi [[ veta"
+msgstr "longer next [[ sentence"
+
+#: standard input:28
+msgid "delsi vec zkouska]] pokus"
+msgstr "longer thing test]] try"
+
+#: standard input:29
+msgid "slovo"
+msgstr "word"

@@ -1,0 +1,21 @@
+<html>
+    <head>
+        <title><TMPL_VAR title></title>
+    </head>    
+    <body>
+        ### Comment should be removed.
+        <TMPL_LOOP Loop>
+            <h1>1: <TMPL_VAR greeting GLOBAL="1" ESCAPE="0"></h1>
+            <h1>2: <TMPL_VAR NAME="greeting" GLOBAL="1" ESCAPE="0"></h1>
+
+            <h1>3: <TMPL_VAR greeting ESCAPE="0" GLOBAL="1"></h1>
+            <h1>4: <TMPL_VAR NAME="greeting" ESCAPE="0" GLOBAL="1"></h1>
+
+            <h1>5: <TMPL_VAR greeting GLOBAL="1"></h1>
+            <h1>6: <TMPL_VAR NAME="greeting" GLOBAL="1"></h1>
+
+            <h1>7: <TMPL_VAR greeting ESCAPE="0"></h1>
+            <h1>8: <TMPL_VAR NAME="greeting" ESCAPE="0"></h1>
+        </TMPL_LOOP>
+    </body>
+</html>

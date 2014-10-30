@@ -1,0 +1,92 @@
+<html>
+<head>
+  <title><TMPL_VAR title></title>
+</head>
+
+<body>
+
+  ### Table of users
+
+  <h1>Total users: <TMPL_VAR Users></h1>
+
+  <table>
+    <TMPL_LOOP Users>
+      <tr>
+        <td>
+          <TMPL_IF __FIRST__>
+            first person
+          </TMPL_IF>
+          <TMPL_IF __LAST__>
+            last person
+          </TMPL_IF>
+          <TMPL_UNLESS __FIRST__>
+            <TMPL_UNLESS __LAST__>
+              common person
+            </TMPL_UNLESS>
+          </TMPL_UNLESS>
+        </td>
+        <td><TMPL_VAR __PASS__></td>
+        <td><TMPL_VAR name></td>
+        <td><TMPL_VAR age></td>
+        <td><TMPL_VAR city></td>
+        
+        <TMPL_VAR unused>
+        
+        <td>
+          Total skills: <TMPL_VAR Skills>         
+          <ul>
+            <TMPL_LOOP Skills>
+              <li><TMPL_VAR __PASS__>. <TMPL_VAR skill></li>
+            </TMPL_LOOP>
+          </ul>
+        </td>        
+      </tr>
+    </TMPL_LOOP>
+  </table>
+
+  <TMPL_IF unused>
+    <p>UNUSED: IF: this should not appear in the output</p>
+  </TMPL_IF>
+
+  <TMPL_IF blurb>
+    <p>BLURB: IF: this should appear in the output</p>
+  </TMPL_IF>
+
+  <TMPL_UNLESS blurb>
+    <p>BLURB: UNLESS: this should not appear in the output</p>
+  </TMPL_UNLESS>
+
+  ### Selection of products
+
+  <form method="post" action="">
+    <select>
+      <TMPL_LOOP Products>
+        <TMPL_IF selected>
+          <option value="<TMPL_VAR key>"
+                  selected="selected"><TMPL_VAR name></option>
+        <TMPL_ELSE>
+          <option value="<TMPL_VAR key>"><TMPL_VAR name></option>        
+        </TMPL_IF>
+      </TMPL_LOOP>
+    </select>
+  </form>
+  
+  <TMPL_IF Products>
+    <p>PRODUCTS: IF: this should appear in the output</p>
+  </TMPL_IF>
+  
+  <TMPL_IF Unused_loop>
+    <p>UNUSED_LOOP: IF: this should not appear in the output</p>
+  </TMPL_IF>
+
+  <p>  
+  <TMPL_LOOP Unused>
+    empty
+    <TMPL_LOOP Unused>
+      empty
+    </TMPL_LOOP>
+  </TMPL_LOOP>
+  </p>
+  
+</body>
+</html>

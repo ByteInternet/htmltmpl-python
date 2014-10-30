@@ -1,0 +1,52 @@
+<html>
+<head>
+  <title><TMPL_VAR title></title>
+</head>
+
+<body>
+    <h1><TMPL_VAR greeting></h1>
+    <p>OK = TITLE, VAR1, VAR3, VAR8-1, VAR8-2</p>
+
+    <TMPL_IF title>
+        TITLE: OK
+
+        <TMPL_IF var1>
+            VAR1: OK
+        </TMPL_IF>
+
+        <TMPL_IF var2>
+            VAR2: FAILED
+        </TMPL_IF>
+
+        <TMPL_IF var3>
+            VAR3: OK
+        </TMPL_IF>
+
+        <TMPL_IF var4>
+            VAR4-1: FAILED
+            <TMPL_IF var5>
+                VAR5: FAILED
+            </TMPL_IF>
+            VAR4-2: FAILED
+        </TMPL_IF>
+
+        <TMPL_IF var6>
+            VAR6-1: FAILED
+            <TMPL_IF var7>
+                VAR7: FAILED
+            </TMPL_IF>
+            VAR6-2: FAILED
+        </TMPL_IF>
+
+        <TMPL_IF var8>
+            VAR8-1: OK
+            <TMPL_IF var9>
+                VAR9: FAILED
+            </TMPL_IF>
+            VAR8-2: OK
+        </TMPL_IF>
+
+    </TMPL_IF>
+  
+</body>
+</html>

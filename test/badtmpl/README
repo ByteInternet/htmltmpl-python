@@ -1,0 +1,4 @@
+
+    This directory contains some invalid templates.
+    They are used to test if the detection of invalid template syntax
+    works properly.

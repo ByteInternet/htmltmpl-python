@@ -1,0 +1,677 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+  <head>
+    <title>htmltmpl templating engine</title>
+    <meta name="author" content="Tomas Styblo (tripie@cpan.org)"></meta>
+    <link rel="StyleSheet" type="text/css" href="main.css"></link>
+  </head>
+  <body>
+    
+    <table width="100%" border="2" cellspacing="4" cellpadding="8">
+      <tr>
+        <td align="center">
+          <span class="title">
+            <strong>
+              htmltmpl: templating engine for separation of code and HTML
+            </strong>
+          </span>
+        </td>
+      </tr>
+    </table>   
+
+    <p></p>
+    
+    <table border="0" cellspacing="0" cellpadding="16">
+      <tr>
+        
+        
+        <!-- menu on the left -->
+        
+
+        <td valign="top">
+          <ul>
+            <li><p><a href="http://htmltmpl.sourceforge.net/">HOMEPAGE</a></p></li>
+            <li><p><a href="index.html">OVERVIEW</a></p></li>
+            <li><p><a href="lang.html">THE LANGUAGE</a></p></li>
+            <li><p><a href="python-api.html">API DOCS</a></p></li>
+            <li><p><a href="gettext.html">GETTEXT SUPPORT</a></p></li>
+            <li><p><a href="python.html">PYTHON VERSION</a></p></li>
+            <li><p><a href="easydoc.html">PYTHON EASYDOC</a></p></li>
+            <li><p><a href="php.html">PHP VERSION</a></p></li>
+            <li><p><a href="http://lists.sourceforge.net/lists/listinfo/htmltmpl-support">MAILING LIST</a></p></li>
+            <li><p><a href="http://sourceforge.net/cvs/?group_id=34229">PUBLIC CVS</a></p></li>
+            <li><p><a href="http://sam.tregar.com/html_template.html">HTML::TEMPLATE</a></p></li>
+            <li><p><a href="http://sourceforge.net">
+                  <img src="http://sourceforge.net/sflogo.php?group_id=34229"
+                       width="88" height="31" class="noborder"
+                       alt="SourceForge Logo"></img></a></p></li>
+          </ul>
+        </td>
+
+        
+        <!-- the text right to the menu -->
+        
+
+        <td valign="top">
+
+          <p>
+            This is a description of the templating language used by
+            htmltmpl.
+          </p>
+
+          <ul>
+            <li><a href="#compat">HTML::Template compatibility</a></li>
+            <li><a href="#syntax">Syntax overview</a></li>
+            <li><a href="#statements">Statements</a></li>
+            <li><a href="#example">Example</a></li>
+          </ul>
+
+        </td>
+      </tr>
+    </table>
+    
+    <hr></hr>    
+    <h2><a name="compat"></a>HTML::Template compatibility</h2>
+    
+    <p>    
+      Templates created for HTML::Template can be used with this engine
+      in case they do not violate character case rules of htmltmpl.
+    </p>
+    
+    <p>
+      <strong>WARNING:</strong>
+      Template statements and their parameters must always be in uppercase.
+      Variable names must always be in lowercase. Loop names must be in
+      lowercase, but capitalized.
+    </p>
+
+    <p>
+      <strong>WARNING:</strong>
+      All included templates must be located in a directory named
+      <strong>'inc'</strong> which must be a subdirectory of the
+      directory in which the main template file is located. You must
+      refer to these templates only by their filename, ie. without
+      the 'inc' part of the path.
+    </p>
+    
+    <p>
+      <strong>
+        This engine offers all features of HTML::Template except:
+      </strong>
+    </p>
+    
+    <ul>
+      <li>The IPC shared cache.</li>
+    </ul>
+    
+    <p>
+      <strong>
+        The engine also offers some additional features:
+      </strong>
+    </p>
+
+    <ul>
+      <li>
+        <p>
+        Gettext support for easy creation of multilingual web applications.
+        </p>
+      </li>
+        
+      <li>
+        <p>
+          Special comments in form of "### some comment" can be added
+          to the templates. These comments are removed when the
+          templates are processed.
+        </p>
+      </li>
+      
+      <li>
+        <p>
+          Precompiled versions of the templates can be saved
+          to disk to increase performance significantly.
+          This feature vastly reduces the need of caching of any sort.
+        </p>
+      </li>
+      
+      <li>
+        <p>
+          Multipart templates can be created using the &lt;TMPL_BOUNDARY&gt;
+          directive. Multipart templates are useful when you need to process
+          and output a part of the template before all data needed to process
+          the whole template are ready.
+        </p>
+      </li> 
+      
+      <li>
+        <p>
+          Additional loop context variables.
+        </p>
+        <ul>
+          <li>__PASS__</li>
+          <li>__PASSTOTAL__</li>
+          <li>__EVERY__x</li>
+        </ul>
+      </li>
+      
+      <li>
+        <p>
+          Loop identifiers used in &lt;TMPL_VAR&gt; statements produce 
+          a total number of passes in the corresponding loop.
+        </p>
+      </li>
+      
+      <li>
+        <p>
+          You can override the global_vars setting on a per-variable
+          basis using a new 'GLOBAL' parameter.
+        </p>
+      </li>
+      
+      <li>
+        <p>
+          All variables are by default automatically HTML escaped.
+          This can be disabled by setting the 'html_escape' parameter
+          to false.
+        </p>
+      </li>
+    </ul>        
+    
+    <hr></hr>
+    <h2><a name="syntax"></a>Syntax overview</h2>
+    
+    <h3>Statements</h3>
+    <p>
+      The control statements of the templating language look like HTML tags.
+      They can be written in two forms:
+    </p>
+    
+    <ul>
+      <li>&lt;TMPL_VAR&gt;</li>
+      <li>&lt;!-- TMPL_VAR --&gt;</li>
+    </ul>
+
+    <p>
+      There must be <strong>exactly</strong> one space after
+      the opening "<em>&lt;!--</em>" and before the
+      closing "<em>--&gt;</em>" if you use the longer form.
+    </p> 
+    
+    <p>
+      All statements except TMPL_VAR should be placed on a separate line.
+    </p>
+    
+    <p>
+      All tabs and spaces on a line before a statement are removed,
+      if there are no other characters except tabs and spaces between
+      beginning of the line and the statement.
+    </p>
+    <p>
+      A trailing newline after a statement is removed if there are no other
+      characters between the newline and the statement.
+    </p>
+    <p>
+      The white-space removing described above is a Good Thing, because it
+      keeps the HTML nicely formatted, especially when loops are involved.
+      If you want to preserve the newline after a statement, just add a space
+      or a tab after the statement.
+    </p>
+    
+    <p>
+      The statements do not need to follow HTML validity rules.
+      For example, following usage of TMPL_VAR is absolutely valid:
+    </p>
+    <pre>    
+            &lt;img src="<span class="red">&lt;TMPL_VAR image&gt;</span>" /&gt;
+    </pre>
+    <p>    
+      Unrecognized TMPL_* statements are detected and TemplateError
+      is raised when one is found.
+    </p>
+    <p>
+      Statements must be completely in uppercase: for example "TMPL_VAR".
+      It improves readability of the templates a lot. It makes
+      the statements easily distinguishable from normal XHTML tags,
+      that are always in lowercase.
+    </p>
+    <p>
+      Templates must not contain the '\0' character (ASCII code zero).
+    </p>    
+    
+    <hr></hr>
+    <h3>Parameters of the statements</h3>
+    <p>
+      Parameters can be written in two forms:
+    </p>
+    
+    <ul>
+      <li>with double quotes: &lt;TMPL_VAR myvar ESCAPE="HTML"&gt;</li>
+      <li>without double quotes: &lt;TMPL_VAR myvar ESCAPE=HTML&gt;</li>
+    </ul>
+    
+    <p>
+      There must not be any space between the "=" character and the name or
+      the value of the parameter.
+    </p>
+
+    <p>
+      Parameter names must be completely in uppercase: ESCAPE="HTML".
+    </p>    
+    <p>
+      Predefined special values of parameters (like for example the
+      "HTML", "URL" and "NONE" values of the ESCAPE parameter) must
+      be completely in uppercase.
+    </p>     
+    <p>
+      Parameter names and values can contain only alphanumeric characters
+      (non-locale) plus some additional characters: dash, dot, underscore,
+      colon, slash, backslash. They must NOT contain any spaces.
+    </p>  
+    
+    <hr></hr>
+    <h3>Identifiers</h3>
+    <p>
+      There are three types of identifiers:
+    </p>
+    <ul>
+      <li>names of variables</li>
+      <li>names of loops</li>
+      <li>filenames of included templates</li>
+    </ul>        
+    <p>    
+      Names of loops and variables can contain ASCII (non-locale)
+      alphanumeric characters, underscores and dashes. Names of loops and
+      variables are further restricted by the character case rules
+      described below.
+    </p>
+    <p>
+      Template filenames in TMPL_INCLUDE statements can contain only the same
+      characters that are allowed in values of parameters(see above). They
+      must NOT contain any spaces.
+    </p>
+    <p>    
+      Minimum length of an identifier is one character.
+      Names of variables and loops can be specified in two ways:
+    </p>
+    
+    <ul>
+      <li>as bare-words: &lt;TMPL_VAR myvar&gt;</li>
+      <li>as 'NAME' parameters: &lt;TMPL_VAR NAME="myvar"&gt;</li>
+    </ul>
+    
+    <p>    
+      Following character case rules apply to the
+      names of variables and loops:
+    </p>
+    
+    <ul>
+      <li>Variable names must be completely in lowercase: myvar</li>
+      <li>Loop names must be capitalized and in lowercase: Myloop</li>
+    </ul>
+    
+    
+    <hr></hr>
+    <h3>Valid statements and parameters</h3>
+    <table cellpadding="8" cellspacing="1" border="1">
+      <tr>
+        <td><strong>TMPL_INCLUDE</strong></td>
+        <td>NAME</td>
+      </tr>
+      <tr>
+        <td><strong>TMPL_VAR</strong></td>
+        <td>NAME, ESCAPE, GLOBAL</td>
+      </tr>
+      <tr>
+        <td><strong>TMPL_IF</strong></td>
+        <td>NAME, GLOBAL</td>
+      </tr>
+      <tr>
+        <td><strong>TMPL_UNLESS</strong></td>
+        <td>NAME, GLOBAL</td>
+      </tr>
+      <tr>
+        <td><strong>TMPL_ELSE</strong></td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td><strong>/TMPL_IF</strong></td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td><strong>/TMPL_UNLESS</strong></td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td><strong>TMPL_LOOP</strong></td>
+        <td>NAME</td>
+      </tr>
+      <tr>
+        <td><strong>/TMPL_LOOP</strong></td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td><strong>TMPL_BOUNDARY</strong></td>
+        <td>&nbsp;</td>
+      </tr>
+    </table>
+    
+    <p></p>
+    
+    
+    <hr></hr>
+    <h3>Template comments</h3>
+    <p>
+      Comments are in form of "### some comment".
+      Everything that follows these four characters - "### " - is removed 
+      before the template is processed. 
+      The ending space in "### " IS significant.
+      Comments can be disabled using the 'comments' parameter.
+    </p>        
+    
+    
+    <hr></hr>
+    <h4>Examples:</h4>
+    <pre>
+        &lt;TMPL_VAR myname&gt;    ### first comment
+        &lt;TMPL_VAR hisname&gt;   ### second comment
+    </pre>
+    
+    
+    <hr></hr>
+    <h2><a name="statements"></a>Statements</h2>
+    
+    <h3>Template inclusion</h3>
+    <p>
+      The &lt;TMPL_INCLUDE&gt; statement includes a template
+      directly into the current template at the point where the
+      statement is found. The included template contents are used
+      exactly as if its contents were physically included in the main
+      template.
+    </p>
+
+    <p>
+      All included templates must be located in a directory named
+      <strong>'inc'</strong> which must be a subdirectory of the
+      directory in which the main template file is located. You must
+      refer to these templates only by their filename, ie. without
+      the 'inc' part of the path.
+    </p>
+     
+    <h4>Examples:</h4>
+    <p>
+    In this example, the file <em>header.tmpl</em> must be located in the
+    <strong>'inc'</strong> subdirectory of the directory in
+    which the main template file is located.
+    </p>
+    <pre>
+        &lt;TMPL_INCLUDE header.tmpl&gt;
+        &lt;TMPL_INCLUDE NAME="header.tmpl"&gt;
+    </pre>                   
+    
+    
+    <hr></hr>
+    <h3>Variables</h3>
+    
+    <p>
+      TODO
+    </p>
+    
+    <p>
+      Variables defined by the TMPL_VAR statements are substituted with values
+      associated with them by the <em>set()</em> method of TemplateProcessor.
+    </p>
+    
+    <h4>Escaping of variables</h4>
+    <p>
+      All variables are automatically HTML escaped. This can be disabled
+      using the 'html_escape' parameter.
+      Escaping of variables can also be specified on a per variable basis
+      using the ESCAPE parameter. This parameter overrides the default
+      escaping setting. It can have three values:
+    </p>
+    <ul>
+      <li>HTML : enable HTML escaping</li>
+      <li>URL  : enable URL escaping</li>
+      <li>NONE : disable escaping</li>
+    </ul>
+    
+    <h4>Global look-up of variables</h4>
+    <p>
+      All variables that are inside a loop are local to that loop.
+      If you want to reference a "global" variable from inside a loop,
+      then you must either enable the 'global_vars' parameter or use
+      the GLOBAL parameter to override 'global_vars'
+      setting on a per variable basis.     
+    </p>
+    
+    <h4>Examples:</h4>
+    <pre>
+    &lt;TMPL_VAR name&gt;
+    &lt;TMPL_VAR NAME="city"&gt;
+    &lt;TMPL_VAR NAME="text1" ESCAPE="HTML"&gt;
+    &lt;TMPL_VAR NAME="text2" ESCAPE="NONE" GLOBAL="0"&gt;
+    &lt;TMPL_VAR address GLOBAL="1"&gt;
+    &lt;!-- TMPL_VAR test ESCAPE=URL --&gt;
+    </pre>    
+    
+    
+    <hr></hr>
+    <h3>Conditionals</h3>
+    
+    <p>
+      TODO
+    </p>
+    
+    <p>    
+      The TMPL_IF, /TMPL_IF, TMPL_ELSE, TMPL_UNLESS and /TMPL_UNLESS
+      statements are conditionals.
+      They mark start and end of a block that is included in the output
+      only when the condition is true.
+      Only names of variables or loops can be used
+      in the condition. Conditional blocks may contain other nested conditional
+      blocks.
+    </p>
+    
+    <p>
+      If name of a loop is used in a condition, then the condition is true
+      if the content of the loop will be included in the output at least once.
+    </p>
+    
+    <h4>Examples:</h4>
+    <pre>
+    <span class="red">&lt;TMPL_IF myvar&gt;</span>
+        This block appears in the output if myvar is true.
+    <span class="red">&lt;TMPL_ELSE&gt;</span>
+        This block appears in the output if myvar is false.
+    <span class="red">&lt;/TMPL_IF&gt;</span>
+
+    <span class="red">&lt;TMPL_UNLESS hisvar&gt;</span>
+        This block appears in the output if hisvar is false.
+    <span class="red">&lt;TMPL_ELSE&gt;</span>
+        This block appears in the output if hisvar is true.
+    <span class="red">&lt;/TMPL_UNLESS&gt;</span>
+    </pre>    
+    
+    
+    <hr></hr>
+    <h3>Loops</h3>
+    
+    <p>
+      TODO
+    </p>
+    
+    <p>
+      The TMPL_LOOP and /TMPL_LOOP statements mark start and end of a block
+      which is printed once for each mapping in the list of mappings
+      associated with the corresponding loop.
+    </p>
+    
+    <p>
+      Loops can contain other nested loops. Every loop introduces its own namespace
+      (scope) for variables. Variables located inside a loop cannot reference
+      variables located outside the loop unless the 'global_vars' parameter
+      is true, or unless this parameter is overridden for
+      this variable using the 'GLOBAL' parameter of the corresponding
+      TMPL_VAR statement.
+    </p>    
+    <p>
+      Loop names used as variables in TMPL_VAR statements produce
+      total number of passes in the corresponding loop.
+    </p>
+    
+    <h4>examples</h4>
+    <pre>
+    <span class="red">&lt;TMPL_LOOP Myloop&gt;</span>
+        This block appears in the output
+        once for every pass of the loop.
+        <span class="red">&lt;TMPL_VAR myvar&gt;</span>   <span class="red">### Local variable.</span>
+    <span class="red">&lt;/TMPL_LOOP&gt;</span>
+    </pre>
+
+    
+    <hr></hr>
+    <h3>Magic loop variables</h3>
+    <p>
+      Magic context variables are automatically defined in every loop.
+      They can be used the same way as normal variables. Their names always
+      start with two underscores.
+      Values of these variables are always integers (true = 1, false = 0).
+    </p>
+    
+    <p>
+      Following list lists all recognized magic variables.
+      Any other variable name which starts with two underscores is
+      invalid. The TemplateError exception is raised when such a variable
+      name is found.
+    </p>
+    
+    <h4>__FIRST__</h4>
+    <p>
+      This variable is true if current pass is the first pass.
+    </p>
+    
+    <h4>__LAST__</h4>
+    <p>
+      This variable is true if current pass is the last pass.
+    </p>
+    
+    <h4>__INNER__</h4>
+    <p>
+      This variable is true if current pass is neither first nor last pass.
+    </p>
+    
+    <h4>__ODD__</h4>
+    <p>
+      This variable is true if number of current pass is odd.
+      That means it's true in the first, third, fifth, seventh ..... pass.
+    </p>
+    
+    <h4>__PASS__</h4>
+    <p>
+      Value of this variable is the number of current pass.
+      Passes are counted from one. Value of this variable is one in the first
+      pass, two in the second pass etc.
+    </p>
+    
+    <h4>__PASSTOTAL__</h4>
+    <p>
+      Value of this variable is total number of passes in current loop.
+    </p>
+    
+    <h4>__EVERY__x</h4>
+    <p>
+      Where 'x' must be an integer. It can consist of more than one digit.
+      This variable is true if number of
+      current pass modulo 'x' equals to zero. The variable is never true in
+      first or last pass, even if the condition above is true
+      in such a pass. This variable can be used to put separators
+      between every 'x' items of a list.
+    </p>
+    
+
+    <hr></hr>
+    <h3>Multipart templates</h3>
+    <p>
+      Multipart templates can be created using the &lt;TMPL_BOUNDARY&gt;
+      directive. This directive has no parameters.
+    </p>
+    <p>  
+      Multipart templates are useful when you need to process
+      and output a part of the template before all data needed to process
+      the whole template are ready.
+    </p>
+    <p>
+      This can be useful to improve
+      perceived responsiveness of web applications by sending the top part of
+      a page to the client before the web application for example sends a slow
+      query to the database and generates rest of the page from results of
+      the query. Keep in mind that you probably will have to flush the
+      output stream to achieve the desired effect. This can usually be done by
+      calling <em>sys.stdout.flush()</em> in Python or <em>flush()</em> in PHP.
+    </p>
+    <p>
+      Multipart templates must follow this rule: <strong>every part itself
+      must be a syntactically valid template.</strong> It means that boundaries
+      between the parts must not be located inside a conditional block or
+      inside a loop block.
+    </p>
+    <p>
+      The boundaries are processed after template inclusions are processed.
+      It's possible to put the boundaries into the included templates,
+      tough it's not recommended.
+    </p>
+    <p>
+      Please consult API documentation of the TemplateProcessor.process()
+      method to find out how to correctly use multipart templates in
+      your applications.
+    </p>    
+
+    <h4>examples</h4>
+    <pre>
+    This is part one.
+    <span class="red">&lt;TMPL_BOUNDARY&gt;</span>
+    This is part two.
+    <span class="red">&lt;TMPL_BOUNDARY&gt;</span>    
+    This is part three.
+    </pre>
+    
+    
+    <!-- Example -->
+        
+    <hr></hr>
+    <h2><a name="example"></a>Example</h2>
+    
+    <h3>template.tmpl</h3>
+    <pre>
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;title&gt;<span class="red">&lt;TMPL_VAR title&gt;</span>&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;h1&gt;Customers:&lt;/h1&gt;
+        &lt;p&gt;
+            Total: <span class="red">&lt;TMPL_VAR Customers&gt;</span>
+        &lt;/p&gt;
+
+        <span class="red">### this comment will be removed</span>
+
+        &lt;table&gt;
+            <span class="red">&lt;TMPL_LOOP Customers&gt;</span>
+                &lt;tr&gt;
+                    <span class="red">&lt;TMPL_IF new&gt;</span>
+                        &lt;td&gt;new customer&lt;/td&gt; 
+                    <span class="red">&lt;TMPL_ELSE&gt;</span>
+                        &lt;td&gt;old customer&lt;/td&gt;
+                    <span class="red">&lt;/TMPL_IF&gt;</span>
+                    &lt;td&gt;<span class="red">&lt;TMPL_VAR __PASS__&gt;</span>&lt;/td&gt;
+                    &lt;td&gt;<span class="red">&lt;TMPL_VAR name&gt;</span>&lt;/td&gt;
+                    &lt;td&gt;<span class="red">&lt;TMPL_VAR city&gt;</span>&lt;/td&gt;
+                &lt;/tr&gt;
+            <span class="red">&lt;/TMPL_LOOP&gt;</span>            
+        &lt;/table&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+    </pre>
+    
+  </body>
+</html>

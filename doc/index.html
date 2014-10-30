@@ -1,0 +1,224 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+  <head>
+    <title>htmltmpl templating engine</title>
+    <meta name="author" content="Tomas Styblo (tripie@cpan.org)"></meta>
+    <link rel="StyleSheet" type="text/css" href="main.css"></link>
+  </head>
+  <body>
+    
+    <table width="100%" border="2" cellspacing="4" cellpadding="8">
+      <tr>
+        <td align="center">
+          <span class="title">
+            <strong>
+              htmltmpl: templating engine for separation of code and HTML
+            </strong>
+          </span>
+        </td>
+      </tr>
+    </table>
+
+    <p></p>
+    
+    <table border="0" cellspacing="0" cellpadding="16">
+      <tr>
+
+
+        <!-- menu on the left -->
+
+
+        <td valign="top">
+          <ul>
+            <li><p><a href="http://htmltmpl.sourceforge.net/">HOMEPAGE</a></p></li>
+            <li><p><a href="index.html">OVERVIEW</a></p></li>
+            <li><p><a href="lang.html">THE LANGUAGE</a></p></li>
+            <li><p><a href="python-api.html">API DOCS</a></p></li>
+            <li><p><a href="gettext.html">GETTEXT SUPPORT</a></p></li>
+            <li><p><a href="python.html">PYTHON VERSION</a></p></li>
+            <li><p><a href="easydoc.html">PYTHON EASYDOC</a></p></li>
+            <li><p><a href="php.html">PHP VERSION</a></p></li>
+            <li><p><a href="http://lists.sourceforge.net/lists/listinfo/htmltmpl-support">MAILING LIST</a></p></li>
+            <li><p><a href="http://sourceforge.net/cvs/?group_id=34229">PUBLIC CVS</a></p></li>
+            <li><p><a href="http://sam.tregar.com/html_template.html">HTML::TEMPLATE</a></p></li>
+            <li><p><a href="http://sourceforge.net">
+                  <img src="http://sourceforge.net/sflogo.php?group_id=34229"
+                       width="88" height="31" class="noborder"
+                       alt="SourceForge Logo"></img></a></p></li>
+          </ul>
+        </td>
+        
+
+        <!-- the text right to the menu -->
+
+        
+        <td valign="top">
+          <p>
+            <strong>Current versions:</strong>
+          </p>
+          <table cellpadding="8" cellspacing="1" border="1">
+            <tr>
+              <td>
+                htmltmpl for Python<br></br>
+                easydoc for Python
+              </td>
+              <td><strong>1.22</strong></td>
+              <td>2001/12/15</td>
+              <td>
+                  <a href="htmltmpl-1.22.tar.gz">download</a>
+              </td>
+            </tr>
+            <tr>
+              <td>htmltmpl for PHP</td>
+              <td><strong>1.12</strong></td>
+              <td>2001/12/15</td>
+              <td>
+                  <a href="htmltmpl-php-1.12.tar.gz">download</a>
+              </td>
+            </tr>
+          </table>
+          
+          <p>
+            The purpose of the templating engine is to provide web
+            application developers,
+            who need to separate program code and design (HTML code) of their
+            web application projects, with a templating tool that can be
+            easily used by cooperating webdesigners who have no programming
+            skills.
+          </p>
+          <p>
+            Templating language provided by the engine is inspired by Perl
+            templating module HTML::Template.
+            Templates created for HTML::Template can be used with this engine.
+          </p>
+          <p>
+            The engine is currently available for Python and PHP.
+            The Python package includes <strong>easydoc</strong>, a module
+            which uses the templating engine to generate HTML documentation
+            from docstrings embedded in source files of Python modules.
+          </p>
+
+          <p>
+            The primary goal of the templating engine is to keep things simple
+            for a webdesigner who creates the templates. Therefore, neither
+            Python nor PHP code can be used in the templates.
+            Instead, the templating
+            engine provides its own simple templating language that supports
+            basic programming operations like for example loops, conditionals
+            and substitution of variables. These operations are controlled
+            from within the templates by statements that look like HTML tags
+            and integrate nicely with regular HTML code.
+          </p>
+          
+          <p>
+            The secondary goal is good performance. High speed template
+            processing is necessary when the engine is used by web
+            applications.
+          </p>
+          
+          <p>
+            I am aware that other templating solutions for Python and PHP
+            exist.
+            But none of them is similar to HTML::Template. I love its
+            enforcement of strict separation of code and HTML and the style
+            and syntax of its template language.
+
+            I find it much more cleaner and maintainable than
+            the other solutions. Also, I need to move some projects from
+            Perl to Python and PHP and I want to reuse my old HTML::Template
+            templates. These are the reasons why I created the templating
+            engine.
+          </p>
+
+          <p>
+            The engine now also has an integrated support for gettext, which
+            makes it very convenient for development of multilingual
+            "skinnable" web applications.
+          </p>
+          
+          <hr></hr>
+
+          <ul>
+            <li><a href="#author">Author and license</a></li>
+            <li><a href="#credits">Credits</a></li>
+            <li><a href="#support">Support (mailing list)</a></li>
+          </ul>
+          
+        </td>
+      </tr>
+    </table>
+    
+    <!-- author and license -->
+
+
+    <hr></hr>          
+    <h2><a name="author"></a>Author and license</h2>
+    
+    <address>
+      Copyright (c) 2001 Tomas Styblo<br></br>
+      Email: <a href="mailto:tripie@cpan.org">tripie@cpan.org</a><br></br>
+      Homepage: <a href="http://geocities.com/tripiecz/">
+        http://geocities.com/tripiecz/</a><br></br>
+      Prague, the Czech Republic
+    </address>
+    
+    <p>  
+      You can use and redistribute the engine under conditions of the
+      <a href="http://www.gnu.org/licenses/gpl.html">
+        GNU General Public License</a> that can be found either at
+      <a href="http://www.gnu.org/">http://www.gnu.org/</a> 
+      or in file "LICENSE" contained in the distribution tarball of the
+      engine.
+    </p>
+    
+    <p>
+      Author of the engine and its documentation is not an English
+      native speaker. Corrections of grammar or spelling are welcome.
+    </p>
+
+
+    <!-- credits -->
+
+    
+    <hr></hr>
+    <h2><a name="credits"></a>Credits</h2>
+    
+    <p>
+      The engine is inspired by Perl templating module HTML::Template
+      created by Sam Tregar (sam@tregar.com).
+      Sam invented the excellent templating
+      language. The htmltmpl implementation, however, was designed from scratch
+      and is not based on code of HTML::Template.
+    </p>
+    
+    <p>    
+      You should check the documentation of HTML::Template.
+      The templating language of htmltmpl is fully compatible with 
+      HTML::Template and the documentation of HTML::Template
+      describes it much better than the yet unfinished documentation
+      of htmltmpl.
+    </p>
+    
+    <p>        
+      Documentation of HTML::Template can be found at
+      <a href="http://sam.tregar.com/html_template.html">
+        http://sam.tregar.com/html_template.html</a>
+    </p>
+
+
+    <!-- support -->
+
+    
+    <hr></hr>
+    <h2><a name="support"></a>Support</h2>
+    <p>
+      There is a
+      <a href="http://lists.sourceforge.net/lists/listinfo/htmltmpl-support">
+        mailing list</a> for htmltmpl on SourceForge. Don't hesitate
+      to post a message if you find a bug, want to contribute a patch or
+      have some interesting idea.
+    </p>
+    
+  </body>
+</html>

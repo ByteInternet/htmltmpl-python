@@ -1,0 +1,19 @@
+<html>
+    <head>
+        <title><TMPL_VAR title></title>
+    </head>    
+    <body>
+
+        <h1><TMPL_VAR greeting></h1>   ### Comment should be removed.
+
+        <TMPL_LOOP Loop1>
+            <TMPL_IF greeting>
+                <p> -- No global, greeting is: <TMPL_VAR greeting></p>
+            </TMPL_IF>
+
+            <TMPL_IF greeting GLOBAL="1">
+                <p> ++ Global, greeting is: <TMPL_VAR greeting GLOBAL="1"></p>
+            </TMPL_IF>            
+        </TMPL_LOOP>        
+    </body>
+</html>

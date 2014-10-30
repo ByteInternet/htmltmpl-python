@@ -1,0 +1,106 @@
+
+    1.22 : 2001/12/10
+        - precompilation with gettext bugfix (compile_params missing gettext)
+
+    1.21 : 2001/11/28
+        - this release fixes a major bug in the new gettext support
+
+    1.20 : 2001/11/25
+        - New major feature: integrated GETTEXT support which is
+          ideal for easy creation of multilingual web applications.
+          Check the documentation for description of this new feature.
+        - documentation enhancements (clarification of included templates)
+
+    1.18 : 2001/10/08
+        - new feature: multipart templates.
+          They can be created using the new <TMPL_BOUNDARY> directive.
+          Please see the updated Language reference documentation
+          for more information about this new feature.
+
+        - rewritten parser:
+            - bugfix: multiple parameters now can be specified in any order
+            - better performance of parsing of template inclusions
+
+        - bugfix: the magic variable __EVERY__x now works also if x > 9
+        - extended test-suite
+        - some small documentation fixes
+
+    1.17 : 2001/09/03
+    	- Added the "binary" flag to open() where it's appropriate.
+            This could cause problems on Windows.
+        - The most important function - TemplateProcessor().process() - 
+          was optimized and is now twice faster. The template
+          'test/complex.tmpl' can be processed 50x per second on my K6-350,
+          when it's precompiled in memory.
+        - The default template of easydoc was somewhat enhanced and is now
+          indented properly.
+        - easy.py has new option "--methodbg" 
+
+    1.16 : 2001/09/02
+        - bugfix in easydoc: hidden classes were not hidden
+
+    1.15 : 2001/09/01
+        - !! This release is a major redesign of the module.
+             It's incompatible with code using the old interface.
+             I tried to make the old interface as similar to HTML::Template
+             as possible, but it apparently was not a good idea, because
+             design of HTML::Template is not much object oriented.
+             So, please check the documentation for description of the
+             new much more flexible interface. !!
+           
+        - The module is now multitask safe on UNIX and Windows
+          platforms (precompiled '.tmplc' files are now properly locked).
+          On Macintosh the locking is not implemented and precompilation
+          is disabled on that platform. Anyone willing to implement the 
+          file locking on Mac ?
+
+        - Corrupted or incompatible .tmplc files are now transparently
+          detected, removed and recreated.
+
+        - Templates are now recompiled, if the precompiled form was compiled
+          with different 'include', 'max_include' or 'comments' settings.
+
+        - Templates now can be compiled also from strings.
+
+        - Test suite enhancements.
+
+    1.14 : 2001/08/26
+        - documentation updates
+
+    1.13 : 2001/08/26
+        - documentation updates & spellchecking
+        - new examples in 'doc'
+        - some pyChecker cleanups
+
+    1.10 : 2001/08/25
+        
+        - !! Please note that you must delete all your old compiled 
+             templates (.tmplc files) before you upgrade to this version.
+             This version introduces a new format of .tmplc files which is
+             not compatible with the old one. !!
+
+        - !! Exceptions TmplEx and FatalEx were removed. New exception
+             TemplateError replaces them both. !!
+        
+        - FIXED: self._include_files list was not reset when the template
+                 has changed on the disk and was recompiled
+        - FIXED: invocation of os.stat() on an included template which
+                 may be no longer accessible
+        - new optimization: see merge_statements()
+        - unrecognized TMPL_* statements are now detected and TemplateError
+          is raised if one is found (it's more compatible with HTML::Template)
+        - unrecognized magic variables are now detected and TemplateError is
+          raised when one is found
+        - better exception handling
+        - OO design polishing => moved template metadata to a new separate 
+          Metadata class
+        - the new .tmplc format is much more extensible
+        - some code was replaced with library functions from os.path
+        - some variables and methods now have more descriptive names
+        - documentation enhancements
+        - added this Changes file
+        - general code polishing
+
+    1.00 : 2001/08/15
+        - first release
+        - submitted to the Vaults of Parnassus

@@ -1,0 +1,24 @@
+
+    htmltmpl
+    ========
+    A Python based templating engine for separation of code and HTML.
+      
+    To run the regression tests (recommended):
+    
+        python test.py   
+    
+
+    To install the module:
+    
+        (become root)    
+        python setup.py install
+
+
+    Documentation can be found in the 'doc' directory or at the homepage
+    of this module:
+    
+        http://htmltmpl.sourceforge.net/
+        
+    AUTHOR: Tomas Styblo, tripie@cpan.org
+    LICENSE: GNU GPL (included in file "LICENSE")
+   

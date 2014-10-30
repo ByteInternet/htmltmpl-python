@@ -1,0 +1,211 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+  <head>
+    <title>htmltmpl templating engine</title>
+    <meta name="author" content="Tomas Styblo (tripie@cpan.org)"></meta>
+    <link rel="StyleSheet" type="text/css" href="main.css"></link>
+  </head>
+  <body>
+    
+    <table width="100%" border="2" cellspacing="4" cellpadding="8">
+      <tr>
+        <td align="center">
+          <span class="title">
+            <strong>
+              htmltmpl: templating engine for separation of code and HTML
+            </strong>
+          </span>
+        </td>
+      </tr>
+    </table>   
+
+    <p></p>
+    
+    <table border="0" cellspacing="0" cellpadding="16">
+      <tr>
+        
+        
+        <!-- menu on the left -->
+        
+
+        <td valign="top">
+          <ul>
+            <li><p><a href="http://htmltmpl.sourceforge.net/">HOMEPAGE</a></p></li>
+            <li><p><a href="index.html">OVERVIEW</a></p></li>
+            <li><p><a href="lang.html">THE LANGUAGE</a></p></li>
+            <li><p><a href="python-api.html">API DOCS</a></p></li>
+            <li><p><a href="gettext.html">GETTEXT SUPPORT</a></p></li>
+            <li><p><a href="python.html">PYTHON VERSION</a></p></li>
+            <li><p><a href="easydoc.html">PYTHON EASYDOC</a></p></li>
+            <li><p><a href="php.html">PHP VERSION</a></p></li>
+            <li><p><a href="http://lists.sourceforge.net/lists/listinfo/htmltmpl-support">MAILING LIST</a></p></li>
+            <li><p><a href="http://sourceforge.net/cvs/?group_id=34229">PUBLIC CVS</a></p></li>
+            <li><p><a href="http://sam.tregar.com/html_template.html">HTML::TEMPLATE</a></p></li>
+            <li><p><a href="http://sourceforge.net">
+                  <img src="http://sourceforge.net/sflogo.php?group_id=34229"
+                       width="88" height="31" class="noborder"
+                       alt="SourceForge Logo"></img></a></p></li>
+          </ul>
+        </td>
+
+        
+        <!-- the text right to the menu -->
+        
+
+        <td valign="top">
+
+          <p>
+          This section is a description of the gettext support integrated in
+          htmltmpl. It's of interest for anyone who would like to use htmltmpl
+          to easily build a multilingual web application.
+          </p>
+
+          <p>
+          The section describes only the gettext support in htmltmpl. Please
+          refer to other sources for general info on gettext and its
+          principles. The info manual for gettext should be included in every
+          modern UNIX distribution.
+          </p>
+
+          <p>
+            The gettext support in htmltmpl must be explicitely activated by
+            setting the parameter '<em>gettext</em>' of TemplateManager or
+            TemplateCompiler constructor to TRUE.
+          </p>
+
+          <p>
+            The support will not work if your computer's locale system is not
+            installed properly or if your Python or PHP interpreter is not
+            configured to support locales and gettext. In Python, gettext support
+            is part of the standard library. PHP must be compiled using the
+            '<em>--with-gettext</em>' parameter, otherwise an attempt to use
+            htmltmpl in gettext mode will result in a "call to undefined
+            function" error.
+          </p>
+          
+          <ul>
+            <li><a href="#syntax">Syntax</a></li>
+            <li><a href="#xgettext">tmpl-xgettext</a></li>
+            <li><a href="#programming">Programming</a></li>
+          </ul>
+
+        </td>
+      </tr>
+    </table>
+    
+    <hr></hr>    
+    <h2><a name="syntax"></a>Syntax</h2>
+    
+    <p>
+    In the templates, all text which should be translated by gettext must be
+    enclosed in double brackets. Example:
+    </p>
+
+    <pre>
+    <span class="red">&lt;TMPL_LOOP Test&gt;</span>
+    <span class="red">[[</span><span class="string">Product</span><span class="red">]]</span>: <span class="red">&lt;TMPL_VAR product&gt;</span>&lt;br&gt;
+    <span class="red">[[</span><span class="string">Price</span><span class="red">]]</span>: <span class="red">&lt;TMPL_VAR price&gt;</span>&lt;br&gt;
+    <span class="red">&lt;/TMPL_LOOP&gt;</span>
+    </pre>
+
+    <p>
+    The brackets will be removed when the template is processed.
+    If you need to include opening brackets somewhere in the text of the
+    template, you can escape them using a backslash. In the following example
+    the brackets will not be removed and the word 'jumps' will not be translated.
+    The backslash will be removed always and only when it is placed right before
+    opening or closing double brackets.
+    </p>
+
+    <pre>
+    Quick brown fox \[[jumps]] over a lazy dog.
+    Sometimes we need to use the backslash '\'.
+
+    ... will be printed as:
+
+    Quick brown fox [[jumps]] over a lazy dog.
+    Sometims we need to use the backslash '\'.
+    </pre>
+
+    <p>
+    In some rare cases you need to print a backslash right before double
+    brackets. You can use another backslash to escape the backslash. In that
+    case, one backslash will be printed and the translation will take place.
+    In the following example the word 'jumps' will be translated:
+    </p>
+
+    <pre>
+    Quick brown fox \\[[jumps]] over a lazy dog.
+
+    ... will be printed as:
+
+    Quick brown fox \jumps over a lazy dog.
+    </pre>
+
+    <p>
+    The backslash can also be used to include closing double brackets in a text
+    which should be translated. In the following example, the double brackets
+    are taken as a part of the text to be translated. That means, the whole
+    text 'jumps over ]] a lazy' will be translated.
+    </p>
+
+    <pre>
+    Quick brown fox [[jumps over \]] a lazy]] dog.
+    </pre>
+
+    <p>
+    A backslash always escapes another backslash. That means that to print two
+    backslashes, you must write four of them. An example:
+    </p>
+
+    <pre>
+    This will print one backslash: \.
+    This will print one backslash: \\.
+    This will print two backslashes: \\\\.
+
+    ... will be printed as:
+
+    This will print one backslash: \.
+    This will print one backslash: \.
+    This will print two backslashes: \\.
+    </pre>
+    
+    <!-- xgettext -->
+    
+    <hr></hr>
+    <h2><a name="xgettext"></a>tmpl-xgettext</h2>
+
+    <p>
+    The gettext strings must usually be extracted using the xgettext program.
+    The standard xgettext program cannot work with htmltmpl templates, though.
+    You must use the tmpl-xgettext.pl script which is included in htmltmpl
+    distribution to convert the templates into a format which xgettext can
+    understand.
+    </p>
+
+    <pre>
+    cat template.tmpl | perl tmpl-xgettext.pl | xgettext -o file.po -
+    </pre>
+    
+    <!-- Programming -->
+        
+    <hr></hr>
+    <h2><a name="programming"></a>Programming</h2>
+
+    <p>
+    Your program must initialize gettext before it calls the
+    <strong>process()</strong> method
+    of TemplateProcessor. It usually means to call setlocale(),
+    bindtextdomain() and textdomain() with appropriate parameters.
+    Check documentation of PHP or Python gettext extensions
+    for more information.
+    </p>
+
+    <p>
+    Also, your program is of course responsible for translation of any texts
+    which are assigned as values to TMPL_VARs.
+    </p>
+    
+  </body>
+</html>

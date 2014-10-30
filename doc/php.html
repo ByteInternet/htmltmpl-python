@@ -1,0 +1,259 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+  <head>
+    <title>htmltmpl templating engine</title>
+    <meta name="author" content="Tomas Styblo (tripie@cpan.org)"></meta>
+    <link rel="StyleSheet" type="text/css" href="main.css"></link>
+  </head>
+  <body>
+
+    <table width="100%" border="2" cellspacing="4" cellpadding="8">
+      <tr>
+        <td align="center">
+          <span class="title">
+            <strong>
+              htmltmpl: templating engine for separation of code and HTML
+            </strong>
+          </span>
+        </td>
+      </tr>
+    </table>
+    
+    <p></p>
+    
+    <table border="0" cellspacing="0" cellpadding="16">
+      <tr>
+
+
+        <!-- menu on the left -->
+
+
+        <td valign="top">
+          <ul>
+            <li><p><a href="http://htmltmpl.sourceforge.net/">HOMEPAGE</a></p></li>
+            <li><p><a href="index.html">OVERVIEW</a></p></li>
+            <li><p><a href="lang.html">THE LANGUAGE</a></p></li>
+            <li><p><a href="python-api.html">API DOCS</a></p></li>
+            <li><p><a href="gettext.html">GETTEXT SUPPORT</a></p></li>
+            <li><p><a href="python.html">PYTHON VERSION</a></p></li>
+            <li><p><a href="easydoc.html">PYTHON EASYDOC</a></p></li>
+            <li><p><a href="php.html">PHP VERSION</a></p></li>
+            <li><p><a href="http://lists.sourceforge.net/lists/listinfo/htmltmpl-support">MAILING LIST</a></p></li>
+            <li><p><a href="http://sourceforge.net/cvs/?group_id=34229">PUBLIC CVS</a></p></li>
+            <li><p><a href="http://sam.tregar.com/html_template.html">HTML::TEMPLATE</a></p></li>
+            <li><p><a href="http://sourceforge.net">
+                  <img src="http://sourceforge.net/sflogo.php?group_id=34229"
+                       width="88" height="31" class="noborder"
+                       alt="SourceForge Logo"></img></a></p></li>
+          </ul>
+        </td>
+        
+
+        <!-- the text right to the menu -->
+
+   
+        <td valign="top">
+          
+          <p>
+            This is the PHP version of htmltmpl. This page contains
+            some basic information about the module and examples that
+            illustrate its usage.
+          </p>
+          
+          <p>
+            <strong>
+            A complete documentation of the module's API can be found
+              <a href="python-api.html">here</a>.
+            </strong>
+            It contains description of all public classes and methods which
+            the module provides. The documentation is automatically
+            generated from docstrings in source file of the
+            <strong>Python version</strong> of the module. There are some
+            minor differences between the PHP and the Python version.
+            These differences are described later on this page.
+          </p>
+
+          <p>
+            The PHP version of the module works on UNIX and Windows
+            platforms. It <strong>requires PHP 4.0.6 or newer</strong>.
+            If you get strange compilation errors, then your PHP is too old.
+          </p>
+          
+          <p>
+            The API of the PHP version differs from the Python version in
+            following aspects:
+          </p>
+  
+          <ul>
+            <li>
+              <p>
+                Debugging is activated by pointing a global variable
+                $HTMLTMPL_DEBUG to a debugging logfile. No constructor takes
+                the 'debug' parameter in the PHP version.
+              </p>
+            </li>
+            
+            <li>
+              <p>
+                All the factory methods which return an internally
+                constructed <em>Template</em> object return a
+                <strong>REFERENCE</strong> to it.
+                That means your code must use reference assignments:
+              </p>
+              <pre>
+$manager = new TemplateManager();
+$template <strong><span class="red">=&amp;</span></strong> $manager->prepare($template_file);
+              </pre>
+            </li>
+            
+            <li>
+              <p>
+                PHP does not support exceptions. The <em>TemplateError</em>
+                exception class does not exist in the PHP version. Instead,
+                all problems are handled via <em>user_error()</em> followed
+                by <em>exit()</em>.
+              </p>
+            </li>
+          </ul>
+
+          <p>
+            The version numbering is mutually independent. The 1.00 release
+            of the PHP version was based on the Python release 1.18.
+          </p>
+
+          <hr />
+
+          <ul>
+            <li><a href="python-api.html">API documentation</a>
+              (of the Python version)</li>
+            <li><a href="#examples">Examples</a>
+              <ul>
+                <li><a href="#example-simple">simple</a></li>
+              </ul>
+            </li>
+          </ul>
+          
+        </td>
+      </tr>
+    </table>
+
+
+    <!-- end of the top part -->
+
+    <!-- examples -->
+
+    <hr></hr>
+    <h2><a name="examples"></a>Examples</h2>
+    
+    <p>
+      Source files of all these examples are available in 'doc/examples'
+      directory of the distribution. Files from the regression test
+      suite (the 'test' directory) can also serve as examples.
+    </p>
+
+    <h3><a name="example-simple"></a>simple:</h3>
+
+    <h4>template.tmpl</h4>
+    <pre>
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;title&gt;<span class="red">&lt;TMPL_VAR title&gt;</span>&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;h1&gt;Customers:&lt;/h1&gt;
+        &lt;p&gt;
+            Total: <span class="red">&lt;TMPL_VAR Customers&gt;</span> 
+        &lt;/p&gt;
+
+        <span class="red">### this comment will be removed</span>
+
+        &lt;table&gt;
+            <span class="red">&lt;TMPL_LOOP Customers&gt;</span>
+                &lt;tr&gt;
+                    <span class="red">&lt;TMPL_IF new&gt;</span>
+                        &lt;td&gt;new customer&lt;/td&gt; 
+                    <span class="red">&lt;TMPL_ELSE&gt;</span>
+                        &lt;td&gt;old customer&lt;/td&gt;
+                    <span class="red">&lt;/TMPL_IF&gt;</span>
+                    &lt;td&gt;<span class="red">&lt;TMPL_VAR __PASS__&gt;</span>&lt;/td&gt;
+                    &lt;td&gt;<span class="red">&lt;TMPL_VAR name&gt;</span>&lt;/td&gt;
+                    &lt;td&gt;<span class="red">&lt;TMPL_VAR city&gt;</span>&lt;/td&gt;
+                &lt;/tr&gt;
+            <span class="red">&lt;/TMPL_LOOP&gt;</span>
+        &lt;/table&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+    </pre>
+          
+    <h4>template.php</h4>
+    <pre>
+&lt;?
+require('htmltmpl.php');
+
+# Compile or load already precompiled template.
+$manager = new TemplateManager();
+$template =& $manager->prepare("template.tmpl");
+$tproc = new TemplateProcessor();
+
+# Set the title.
+$tproc->set("title", "Our customers");
+
+# Create the 'Customers' loop. (regular array)
+$customers = array();
+
+# First customer (associative array).
+$customer = array();
+$customer['name'] = 'Joe Sixpack';
+$customer['city'] = 'Los Angeles';
+$customer['new'] = 0;
+array_push($customers, $customer);
+
+# Second customer.
+$customer = array();
+$customer['name'] = 'Paul Newman';
+$customer['city'] = 'New York';
+$customer['new'] = 1;
+array_push($customers, $customer);
+
+$tproc->set("Customers", $customers);
+
+# Print the processed template.
+echo $tproc->process($template);
+?&gt;
+    </pre>
+          
+    <h4>template.html</h4>
+    <pre>
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;title&gt;Our customers&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;h1&gt;Customers:&lt;/h1&gt;
+        &lt;p&gt;
+            Total: 2
+        &lt;/p&gt;
+
+
+
+        &lt;table&gt;
+            &lt;tr&gt;
+                    &lt;td&gt;old customer&lt;/td&gt;
+                &lt;td&gt;1&lt;/td&gt;
+                &lt;td&gt;Joe Sixpack&lt;/td&gt;
+                &lt;td&gt;Los Angeles&lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+                    &lt;td&gt;new customer&lt;/td&gt;
+                &lt;td&gt;2&lt;/td&gt;
+                &lt;td&gt;Paul Newman&lt;/td&gt;
+                &lt;td&gt;New York&lt;/td&gt;
+            &lt;/tr&gt;                
+        &lt;/table&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+    </pre>
+             
+  </body>
+</html>

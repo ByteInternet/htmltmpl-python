@@ -1,0 +1,6 @@
+
+    - Locking of .tmplc files on Macintosh to make the module thread safe
+      on this platform (making the precompilation of templates possible 
+      on this platform).
+
+    

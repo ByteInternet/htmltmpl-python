@@ -1,0 +1,14 @@
+include LICENSE
+include README
+include TODO
+include VERSION
+include CODING
+include MANIFEST
+include MANIFEST.in
+include Changes
+include test.py
+include easy.py
+include tmpl-xgettext.pl
+recursive-include test *
+recursive-include doc *
+global-exclude *.pyc *.tmplc *cvs*

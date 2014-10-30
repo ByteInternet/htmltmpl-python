@@ -1,0 +1,10 @@
+Metadata-Version: 1.0
+Name: htmltmpl
+Version: 1.22
+Summary: Templating engine for separation of code and HTML.
+Home-page: http://htmltmpl.sourceforge.net/
+Author: Tomas Styblo
+Author-email: tripie@cpan.org
+License: GNU GPL
+Description: UNKNOWN
+Platform: UNKNOWN

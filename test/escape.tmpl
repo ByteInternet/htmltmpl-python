@@ -1,0 +1,14 @@
+<html>
+    <head>
+        <title><TMPL_VAR title></title>
+    </head>    
+    <body>
+        <h1><TMPL_VAR greeting></h1>   ### Comment should be removed.
+        <p>
+        Raw: <TMPL_VAR data ESCAPE="NONE"><br />
+        HTML escaped (auto): <TMPL_VAR data><br />
+        HTML escaped (param): <TMPL_VAR data ESCAPE="HTML"><br />
+        URL escaped: <TMPL_VAR data ESCAPE="URL"> 
+        </p>
+    </body>
+</html>

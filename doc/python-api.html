@@ -1,0 +1,935 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+  <html>
+    <head>
+      <title>htmltmpl: documentation</title>
+      <meta name="author"
+            content="Tomas Styblo (tripie@cpan.org)"></meta>
+      <meta name="keywords" content="Python,module,htmltmpl"></meta>
+      <meta name="description" content="A templating engine for separation of code and HTML."></meta>
+      <style type="text/css">
+        <!--
+body {
+  font-family: "Helvetica CE", "Arial CE", Helvetica, Arial, sans-serif;
+  background-color: #d8d0a4;
+  color: black;
+}
+
+a {
+  color: red;
+  font-weight: bold;
+}
+
+.methodbg {
+  background-color: #d8e0d4;
+}
+        -->        
+      </style>
+    </head>
+    <body>
+      <h1>htmltmpl</h1>
+
+      <!-- module info -->
+
+      <p><strong>A templating engine for separation of code and HTML.</strong></p>
+      <p>
+        <strong>
+          VERSION: 1.20          <br></br>
+          AUTHOR: Tomas Styblo          (<a href="mailto:tripie@cpan.org">tripie@cpan.org</a>)
+          <br></br>
+          WEBSITE: <a href="http://htmltmpl.sourceforge.net/">http://htmltmpl.sourceforge.net/</a>
+          <br></br>
+          LICENSE: <a href="http://www.gnu.org/licenses/gpl.html">GNU GPL</a>
+        </strong>
+      </p>
+
+        <p>The documentation of this templating engine is separated to two parts:</p>
+        <p>1. Description of the templating language.</p>
+        <p>2. Documentation of classes and API of this module that provides
+            a Python implementation of the templating language.</p>
+        <p>All the documentation can be found in 'doc' directory of the
+     distribution tarball or at the homepage of the engine.
+     Latest versions of this module are also available at that website.</p>
+        <p>You can use and redistribute this module under conditions of the
+     GNU General Public License that can be found either at
+     <a href="http://www.gnu.org/">http://www.gnu.org/</a> or in file "LICENSE" contained in the
+     distribution tarball of this module.</p>
+        <p>Copyright (c) 2001 Tomas Styblo, tripie@cpan.org</p>
+      <hr></hr>
+
+      <!-- module requirements -->
+
+
+      <!-- table of functions -->
+
+
+      <!-- table of classes and methods -->
+
+        <p><strong>CLASSES:</strong></p>
+        <ul>
+            <li>
+              <p>
+                <a href="#class-TemplateProcessor">TemplateProcessor</a>:
+Fill the template with data and process it.              </p>
+                <table border="0" cellpadding="3">
+                    <tr>
+                      <td>
+                          &nbsp; &nbsp; &nbsp; &nbsp;
+                      </td>
+                      <td class="methodbg">
+                        <a href="#method-TemplateProcessor___init__">
+__init__</a>
+                        &nbsp; &nbsp;
+                      </td>
+                      <td>Constructor.</td>
+                    </tr>
+                    <tr>
+                      <td>
+                          &nbsp; &nbsp; &nbsp; &nbsp;
+                      </td>
+                      <td class="methodbg">
+                        <a href="#method-TemplateProcessor_process">
+process</a>
+                        &nbsp; &nbsp;
+                      </td>
+                      <td>Process a compiled template. Return the result as string.</td>
+                    </tr>
+                    <tr>
+                      <td>
+                          &nbsp; &nbsp; &nbsp; &nbsp;
+                      </td>
+                      <td class="methodbg">
+                        <a href="#method-TemplateProcessor_set">
+set</a>
+                        &nbsp; &nbsp;
+                      </td>
+                      <td>Associate a value with top-level template variable or loop.</td>
+                    </tr>
+                    <tr>
+                      <td>
+                          &nbsp; &nbsp; &nbsp; &nbsp;
+                      </td>
+                      <td class="methodbg">
+                        <a href="#method-TemplateProcessor_reset">
+reset</a>
+                        &nbsp; &nbsp;
+                      </td>
+                      <td>Reset the template data.</td>
+                    </tr>
+                </table>
+            </li>
+            <li>
+              <p>
+                <a href="#class-TemplateError">TemplateError</a>:
+Fatal exception. Raised on runtime or template syntax errors.              </p>
+            </li>
+            <li>
+              <p>
+                <a href="#class-Template">Template</a>:
+This class represents a compiled template.              </p>
+                <table border="0" cellpadding="3">
+                    <tr>
+                      <td>
+                          &nbsp; &nbsp; &nbsp; &nbsp;
+                      </td>
+                      <td class="methodbg">
+                        <a href="#method-Template_is_uptodate">
+is_uptodate</a>
+                        &nbsp; &nbsp;
+                      </td>
+                      <td>Check whether the compiled template is uptodate.</td>
+                    </tr>
+                </table>
+            </li>
+            <li>
+              <p>
+                <a href="#class-TemplateCompiler">TemplateCompiler</a>:
+Preprocess, parse, tokenize and compile the template.              </p>
+                <table border="0" cellpadding="3">
+                    <tr>
+                      <td>
+                          &nbsp; &nbsp; &nbsp; &nbsp;
+                      </td>
+                      <td class="methodbg">
+                        <a href="#method-TemplateCompiler___init__">
+__init__</a>
+                        &nbsp; &nbsp;
+                      </td>
+                      <td>Constructor.</td>
+                    </tr>
+                    <tr>
+                      <td>
+                          &nbsp; &nbsp; &nbsp; &nbsp;
+                      </td>
+                      <td class="methodbg">
+                        <a href="#method-TemplateCompiler_compile_string">
+compile_string</a>
+                        &nbsp; &nbsp;
+                      </td>
+                      <td>Compile template from a string.</td>
+                    </tr>
+                    <tr>
+                      <td>
+                          &nbsp; &nbsp; &nbsp; &nbsp;
+                      </td>
+                      <td class="methodbg">
+                        <a href="#method-TemplateCompiler_compile">
+compile</a>
+                        &nbsp; &nbsp;
+                      </td>
+                      <td>Compile template from a file.</td>
+                    </tr>
+                </table>
+            </li>
+            <li>
+              <p>
+                <a href="#class-TemplateManager">TemplateManager</a>:
+Class that manages compilation and precompilation of templates.              </p>
+                <table border="0" cellpadding="3">
+                    <tr>
+                      <td>
+                          &nbsp; &nbsp; &nbsp; &nbsp;
+                      </td>
+                      <td class="methodbg">
+                        <a href="#method-TemplateManager___init__">
+__init__</a>
+                        &nbsp; &nbsp;
+                      </td>
+                      <td>Constructor.</td>
+                    </tr>
+                    <tr>
+                      <td>
+                          &nbsp; &nbsp; &nbsp; &nbsp;
+                      </td>
+                      <td class="methodbg">
+                        <a href="#method-TemplateManager_update">
+update</a>
+                        &nbsp; &nbsp;
+                      </td>
+                      <td>Update (recompile) a compiled template.</td>
+                    </tr>
+                    <tr>
+                      <td>
+                          &nbsp; &nbsp; &nbsp; &nbsp;
+                      </td>
+                      <td class="methodbg">
+                        <a href="#method-TemplateManager_prepare">
+prepare</a>
+                        &nbsp; &nbsp;
+                      </td>
+                      <td>Preprocess, parse, tokenize and compile the template.</td>
+                    </tr>
+                </table>
+            </li>
+        </ul>
+        <hr></hr>
+
+
+      <!-- documentation of functions -->
+
+
+      <hr></hr>
+
+      <!-- documentation of classes -->
+
+
+        
+        <!-- class: TemplateProcessor -->
+        
+        <h2>CLASS: <a name="class-TemplateProcessor"></a>TemplateProcessor</h2>
+        <p><strong>Fill the template with data and process it.</strong></p>
+          <p>This class provides actual processing of a compiled template.
+         Use it to set template variables and loops and then obtain
+         result of the processing.</p>
+
+        <!-- table of methods of class TemplateProcessor -->
+
+          <p><strong>METHODS:</strong></p>
+          <table border="0" cellpadding="3">
+              <tr>
+                <td>&nbsp; &nbsp; &nbsp; &nbsp;</td>
+                <td class="methodbg">
+                  <a href="#method-TemplateProcessor___init__">
+__init__</a>
+                  &nbsp; &nbsp;
+                </td>
+                <td>Constructor.</td>
+              </tr>
+              <tr>
+                <td>&nbsp; &nbsp; &nbsp; &nbsp;</td>
+                <td class="methodbg">
+                  <a href="#method-TemplateProcessor_process">
+process</a>
+                  &nbsp; &nbsp;
+                </td>
+                <td>Process a compiled template. Return the result as string.</td>
+              </tr>
+              <tr>
+                <td>&nbsp; &nbsp; &nbsp; &nbsp;</td>
+                <td class="methodbg">
+                  <a href="#method-TemplateProcessor_set">
+set</a>
+                  &nbsp; &nbsp;
+                </td>
+                <td>Associate a value with top-level template variable or loop.</td>
+              </tr>
+              <tr>
+                <td>&nbsp; &nbsp; &nbsp; &nbsp;</td>
+                <td class="methodbg">
+                  <a href="#method-TemplateProcessor_reset">
+reset</a>
+                  &nbsp; &nbsp;
+                </td>
+                <td>Reset the template data.</td>
+              </tr>
+          </table>
+        <hr></hr>
+
+        <!-- documentation of methods of class TemplateProcessor -->
+
+          
+          <!-- method __init__ -->
+          
+          <h3>METHOD: <a name="method-TemplateProcessor___init__"></a>
+__init__()</h3>
+          <p>
+            <strong><em>Constructor.</em></strong>
+            <small>(class
+              <a href="#class-TemplateProcessor">TemplateProcessor</a>)
+            </small>
+          </p>
+
+          <!-- parameters of method __init__ -->
+
+          <p><strong>PARAMETERS:</strong></p>
+          <pre>__init__(html_escape=1, magic_vars=1, global_vars=0, debug=0)</pre>                
+                
+            <ul>
+                <li>
+                  <p><strong>html_escape</strong></p>
+                  <p><strong><em>Enable or disable HTML escaping of variables.</em></strong></p>
+                    <p>This optional parameter is a flag that can be used to enable or
+             disable automatic HTML escaping of variables.
+             All variables are by default automatically HTML escaped. 
+             The escaping process substitutes HTML brackets, ampersands and
+             double quotes with appropriate HTML entities.</p>
+                </li>
+                <li>
+                  <p><strong>magic_vars</strong></p>
+                  <p><strong><em>Enable or disable loop magic variables.</em></strong></p>
+                    <p>This parameter can be used to enable or disable
+             "magic" context variables, that are automatically defined inside
+             loops. Magic variables are enabled by default.</p>
+                    <p>Refer to the language specification for description of these
+             magic variables.</p>
+                </li>
+                <li>
+                  <p><strong>global_vars</strong></p>
+                  <p><strong><em>Globally activate global lookup of variables.</em></strong></p>
+                    <p>This optional parameter is a flag that can be used to specify
+             whether variables which cannot be found in the current scope
+             should be automatically looked up in enclosing scopes.</p>
+                    <p>Automatic global lookup is disabled by default. Global lookup
+             can be overriden on a per-variable basis by the
+             <strong>GLOBAL</strong> parameter of a <strong>TMPL_VAR</strong>
+             statement.</p>
+                </li>
+                <li>
+                  <p><strong>debug</strong></p>
+                  <p><strong><em>Enable or disable debugging messages.</em></strong></p>
+                </li>
+            </ul>
+          <hr></hr>
+
+          
+          <!-- method process -->
+          
+          <h3>METHOD: <a name="method-TemplateProcessor_process"></a>
+process()</h3>
+          <p>
+            <strong><em>Process a compiled template. Return the result as string.</em></strong>
+            <small>(class
+              <a href="#class-TemplateProcessor">TemplateProcessor</a>)
+            </small>
+          </p>
+            <p>This method actually processes a template and returns
+             the result.</p>
+   
+            <p><strong>RETURN VALUE:</strong></p>
+            <p>Result of the processing as string.</p>
+
+          <!-- parameters of method process -->
+
+          <p><strong>PARAMETERS:</strong></p>
+          <pre>process(template, part=None)</pre>                
+                
+            <ul>
+                <li>
+                  <p><strong>template</strong></p>
+                  <p><strong><em>A compiled template.</em></strong></p>
+                    <p>Value of this parameter must be an instance of the
+             <em>Template</em> class created either by the
+             <em>TemplateManager</em> or by the <em>TemplateCompiler</em>.</p>
+                </li>
+                <li>
+                  <p><strong>part</strong></p>
+                  <p><strong><em>The part of a multipart template to process.</em></strong></p>
+                    <p>This parameter can be used only together with a multipart
+             template. It specifies the number of the part to process.
+             It must be greater than zero, because the parts are numbered
+             from one.</p>
+                    <p>The parts must be processed in the right order. You
+             cannot process a part which precedes an already processed part.</p>
+                    <p>If this parameter is not specified, then the whole template
+             is processed, or all remaining parts are processed.</p>
+                </li>
+            </ul>
+          <hr></hr>
+
+          
+          <!-- method set -->
+          
+          <h3>METHOD: <a name="method-TemplateProcessor_set"></a>
+set()</h3>
+          <p>
+            <strong><em>Associate a value with top-level template variable or loop.</em></strong>
+            <small>(class
+              <a href="#class-TemplateProcessor">TemplateProcessor</a>)
+            </small>
+          </p>
+            <p>A template identifier can represent either an ordinary variable
+             (string) or a loop.</p>
+            <p>To assign a value to a string identifier pass a scalar
+             as the 'value' parameter. This scalar will be automatically
+             converted to string.</p>
+            <p>To assign a value to a loop identifier pass a list of mappings as
+             the 'value' parameter. The engine iterates over this list and
+             assigns values from the mappings to variables in a template loop
+             block if a key in the mapping corresponds to a name of a variable
+             in the loop block. The number of mappings contained in this list
+             is equal to number of times the loop block is repeated in the
+             output.</p>
+   
+            <p><strong>RETURN VALUE:</strong></p>
+            <p>No return value.</p>
+
+          <!-- parameters of method set -->
+
+          <p><strong>PARAMETERS:</strong></p>
+          <pre>set(var, value)</pre>                
+                
+            <ul>
+                <li>
+                  <p><strong>var</strong></p>
+                  <p><strong><em>Name of template variable or loop.</em></strong></p>
+                </li>
+                <li>
+                  <p><strong>value</strong></p>
+                  <p><strong><em>The value to associate.</em></strong></p>
+                </li>
+            </ul>
+          <hr></hr>
+
+          
+          <!-- method reset -->
+          
+          <h3>METHOD: <a name="method-TemplateProcessor_reset"></a>
+reset()</h3>
+          <p>
+            <strong><em>Reset the template data.</em></strong>
+            <small>(class
+              <a href="#class-TemplateProcessor">TemplateProcessor</a>)
+            </small>
+          </p>
+            <p>This method resets the data contained in the template processor
+             instance. The template processor instance can be used to process
+             any number of templates, but this method must be called after
+             a template is processed to reuse the instance,</p>
+   
+            <p><strong>RETURN VALUE:</strong></p>
+            <p>No return value.</p>
+
+          <!-- parameters of method reset -->
+
+          <p><strong>PARAMETERS:</strong></p>
+          <pre>reset(keep_data=0)</pre>                
+                
+            <ul>
+                <li>
+                  <p><strong>keep_data</strong></p>
+                  <p><strong><em>Do not reset the template data.</em></strong></p>
+                    <p>Use this flag if you do not want the template data to be erased.
+             This way you can reuse the data contained in the instance of
+             the <em>TemplateProcessor</em>.</p>
+                </li>
+            </ul>
+          <hr></hr>
+
+        <hr></hr>
+
+        
+        <!-- class: TemplateError -->
+        
+        <h2>CLASS: <a name="class-TemplateError"></a>TemplateError</h2>
+        <p><strong>Fatal exception. Raised on runtime or template syntax errors.</strong></p>
+          <p>This exception is raised when a runtime error occurs or when a syntax
+         error in the template is found. It has one parameter which always
+         is a string containing a description of the error.</p>
+          <p>All potential IOError exceptions are handled by the module and are
+         converted to TemplateError exceptions. That means you should catch the
+         TemplateError exception if there is a possibility that for example
+         the template file will not be accesssible.</p>
+          <p>The exception can be raised by constructors or by any method of any
+         class.</p>
+          <p>The instance is no longer usable when this exception is raised.</p>
+
+        <!-- table of methods of class TemplateError -->
+
+        <hr></hr>
+
+        <!-- documentation of methods of class TemplateError -->
+
+        <hr></hr>
+
+        
+        <!-- class: Template -->
+        
+        <h2>CLASS: <a name="class-Template"></a>Template</h2>
+        <p><strong>This class represents a compiled template.</strong></p>
+          <p>This class provides storage and methods for the compiled template
+         and associated metadata. It's serialized by pickle if we need to
+         save the compiled template to disk in a precompiled form.</p>
+          <p>You should never instantiate this class directly. Always use the
+         <em>TemplateManager</em> or <em>TemplateCompiler</em> classes to
+         create the instances of this class.</p>
+          <p>The only method which you can directly use is the <em>is_uptodate</em>
+         method.</p>
+
+        <!-- table of methods of class Template -->
+
+          <p><strong>METHODS:</strong></p>
+          <table border="0" cellpadding="3">
+              <tr>
+                <td>&nbsp; &nbsp; &nbsp; &nbsp;</td>
+                <td class="methodbg">
+                  <a href="#method-Template_is_uptodate">
+is_uptodate</a>
+                  &nbsp; &nbsp;
+                </td>
+                <td>Check whether the compiled template is uptodate.</td>
+              </tr>
+          </table>
+        <hr></hr>
+
+        <!-- documentation of methods of class Template -->
+
+          
+          <!-- method is_uptodate -->
+          
+          <h3>METHOD: <a name="method-Template_is_uptodate"></a>
+is_uptodate()</h3>
+          <p>
+            <strong><em>Check whether the compiled template is uptodate.</em></strong>
+            <small>(class
+              <a href="#class-Template">Template</a>)
+            </small>
+          </p>
+            <p>Return true if this compiled template is uptodate.
+             Return false, if the template source file was changed on the
+             disk since it was compiled.
+             Works by comparison of modification times.
+             Also takes modification times of all included templates
+             into account.</p>
+   
+            <p><strong>RETURN VALUE:</strong></p>
+            <p>True if the template is uptodate, false otherwise.</p>
+
+          <!-- parameters of method is_uptodate -->
+
+          <p><strong>PARAMETERS:</strong></p>
+          <pre>is_uptodate(compile_params=None)</pre>                
+                
+            <ul>
+                <li>
+                  <p><strong>compile_params</strong></p>
+                  <p><strong><em>Only for internal use.</em></strong></p>
+                    <p>Do not use this optional parameter. It's intended only for
+             internal use by the <em>TemplateManager</em>.</p>
+                </li>
+            </ul>
+          <hr></hr>
+
+        <hr></hr>
+
+        
+        <!-- class: TemplateCompiler -->
+        
+        <h2>CLASS: <a name="class-TemplateCompiler"></a>TemplateCompiler</h2>
+        <p><strong>Preprocess, parse, tokenize and compile the template.</strong></p>
+          <p>This class parses the template and produces a 'compiled' form
+         of it. This compiled form is an instance of the <em>Template</em>
+         class. The compiled form is used as input for the TemplateProcessor
+         which uses it to actually process the template.</p>
+          <p>This class should be used direcly only when you need to compile
+         a template from a string. If your template is in a file, then you
+         should use the <em>TemplateManager</em> class which provides
+         a higher level interface to this class and also can save the
+         compiled template to disk in a precompiled form.</p>
+
+        <!-- table of methods of class TemplateCompiler -->
+
+          <p><strong>METHODS:</strong></p>
+          <table border="0" cellpadding="3">
+              <tr>
+                <td>&nbsp; &nbsp; &nbsp; &nbsp;</td>
+                <td class="methodbg">
+                  <a href="#method-TemplateCompiler___init__">
+__init__</a>
+                  &nbsp; &nbsp;
+                </td>
+                <td>Constructor.</td>
+              </tr>
+              <tr>
+                <td>&nbsp; &nbsp; &nbsp; &nbsp;</td>
+                <td class="methodbg">
+                  <a href="#method-TemplateCompiler_compile_string">
+compile_string</a>
+                  &nbsp; &nbsp;
+                </td>
+                <td>Compile template from a string.</td>
+              </tr>
+              <tr>
+                <td>&nbsp; &nbsp; &nbsp; &nbsp;</td>
+                <td class="methodbg">
+                  <a href="#method-TemplateCompiler_compile">
+compile</a>
+                  &nbsp; &nbsp;
+                </td>
+                <td>Compile template from a file.</td>
+              </tr>
+          </table>
+        <hr></hr>
+
+        <!-- documentation of methods of class TemplateCompiler -->
+
+          
+          <!-- method __init__ -->
+          
+          <h3>METHOD: <a name="method-TemplateCompiler___init__"></a>
+__init__()</h3>
+          <p>
+            <strong><em>Constructor.</em></strong>
+            <small>(class
+              <a href="#class-TemplateCompiler">TemplateCompiler</a>)
+            </small>
+          </p>
+
+          <!-- parameters of method __init__ -->
+
+          <p><strong>PARAMETERS:</strong></p>
+          <pre>__init__(include=1, max_include=5, comments=1, gettext=0, debug=0)</pre>                
+                
+            <ul>
+                <li>
+                  <p><strong>include</strong></p>
+                  <p><strong><em>Enable or disable included templates.</em></strong></p>
+                </li>
+                <li>
+                  <p><strong>max_include</strong></p>
+                  <p><strong><em>Maximum depth of nested inclusions.</em></strong></p>
+                </li>
+                <li>
+                  <p><strong>comments</strong></p>
+                  <p><strong><em>Enable or disable template comments.</em></strong></p>
+                </li>
+                <li>
+                  <p><strong>gettext</strong></p>
+                  <p><strong><em>Enable or disable gettext support.</em></strong></p>
+                </li>
+                <li>
+                  <p><strong>debug</strong></p>
+                  <p><strong><em>Enable or disable debugging messages.</em></strong></p>
+                </li>
+            </ul>
+          <hr></hr>
+
+          
+          <!-- method compile_string -->
+          
+          <h3>METHOD: <a name="method-TemplateCompiler_compile_string"></a>
+compile_string()</h3>
+          <p>
+            <strong><em>Compile template from a string.</em></strong>
+            <small>(class
+              <a href="#class-TemplateCompiler">TemplateCompiler</a>)
+            </small>
+          </p>
+            <p>This method compiles a template from a string. The
+             template cannot include any templates.
+             <strong>TMPL_INCLUDE</strong> statements are turned into warnings.</p>
+   
+            <p><strong>RETURN VALUE:</strong></p>
+            <p>Compiled template.
+            The return value is an instance of the <em>Template</em>
+            class.</p>
+
+          <!-- parameters of method compile_string -->
+
+          <p><strong>PARAMETERS:</strong></p>
+          <pre>compile_string(data)</pre>                
+                
+            <ul>
+                <li>
+                  <p><strong>data</strong></p>
+                  <p><strong><em>String containing the template data.</em></strong></p>
+                </li>
+            </ul>
+          <hr></hr>
+
+          
+          <!-- method compile -->
+          
+          <h3>METHOD: <a name="method-TemplateCompiler_compile"></a>
+compile()</h3>
+          <p>
+            <strong><em>Compile template from a file.</em></strong>
+            <small>(class
+              <a href="#class-TemplateCompiler">TemplateCompiler</a>)
+            </small>
+          </p>
+   
+            <p><strong>RETURN VALUE:</strong></p>
+            <p>Compiled template.
+            The return value is an instance of the <em>Template</em>
+            class.</p>
+
+          <!-- parameters of method compile -->
+
+          <p><strong>PARAMETERS:</strong></p>
+          <pre>compile(file)</pre>                
+                
+            <ul>
+                <li>
+                  <p><strong>file</strong></p>
+                  <p><strong><em>Filename of the template.</em></strong></p>
+                    <p>See the <em>prepare()</em> method of the <em>TemplateManager</em>
+             class for exaplanation of this parameter.</p>
+                </li>
+            </ul>
+          <hr></hr>
+
+        <hr></hr>
+
+        
+        <!-- class: TemplateManager -->
+        
+        <h2>CLASS: <a name="class-TemplateManager"></a>TemplateManager</h2>
+        <p><strong>Class that manages compilation and precompilation of templates.</strong></p>
+          <p>You should use this class whenever you work with templates
+          that are stored in a file. The class can create a compiled
+          template and transparently manage its precompilation. It also
+          keeps the precompiled templates up-to-date by modification times
+          comparisons.</p>
+
+        <!-- table of methods of class TemplateManager -->
+
+          <p><strong>METHODS:</strong></p>
+          <table border="0" cellpadding="3">
+              <tr>
+                <td>&nbsp; &nbsp; &nbsp; &nbsp;</td>
+                <td class="methodbg">
+                  <a href="#method-TemplateManager___init__">
+__init__</a>
+                  &nbsp; &nbsp;
+                </td>
+                <td>Constructor.</td>
+              </tr>
+              <tr>
+                <td>&nbsp; &nbsp; &nbsp; &nbsp;</td>
+                <td class="methodbg">
+                  <a href="#method-TemplateManager_update">
+update</a>
+                  &nbsp; &nbsp;
+                </td>
+                <td>Update (recompile) a compiled template.</td>
+              </tr>
+              <tr>
+                <td>&nbsp; &nbsp; &nbsp; &nbsp;</td>
+                <td class="methodbg">
+                  <a href="#method-TemplateManager_prepare">
+prepare</a>
+                  &nbsp; &nbsp;
+                </td>
+                <td>Preprocess, parse, tokenize and compile the template.</td>
+              </tr>
+          </table>
+        <hr></hr>
+
+        <!-- documentation of methods of class TemplateManager -->
+
+          
+          <!-- method __init__ -->
+          
+          <h3>METHOD: <a name="method-TemplateManager___init__"></a>
+__init__()</h3>
+          <p>
+            <strong><em>Constructor.</em></strong>
+            <small>(class
+              <a href="#class-TemplateManager">TemplateManager</a>)
+            </small>
+          </p>
+
+          <!-- parameters of method __init__ -->
+
+          <p><strong>PARAMETERS:</strong></p>
+          <pre>__init__(include=1, max_include=5, precompile=1, comments=1, gettext=0, debug=0)</pre>                
+                
+            <ul>
+                <li>
+                  <p><strong>include</strong></p>
+                  <p><strong><em>Enable or disable included templates.</em></strong></p>
+                    <p>This optional parameter can be used to enable or disable
+             <em>TMPL_INCLUDE</em> inclusion of templates. Disabling of
+             inclusion can improve performance a bit. The inclusion is
+             enabled by default.</p>
+                </li>
+                <li>
+                  <p><strong>max_include</strong></p>
+                  <p><strong><em>Maximum depth of nested inclusions.</em></strong></p>
+                    <p>This optional parameter can be used to specify maximum depth of
+             nested <em>TMPL_INCLUDE</em> inclusions. It defaults to 5.
+             This setting prevents infinite recursive inclusions.</p>
+                </li>
+                <li>
+                  <p><strong>precompile</strong></p>
+                  <p><strong><em>Enable or disable precompilation of templates.</em></strong></p>
+                    <p>This optional parameter can be used to enable or disable
+             creation and usage of precompiled templates.</p>
+                    <p>A precompiled template is saved to the same directory in
+             which the main template file is located. You need write
+             permissions to that directory.</p>
+                    <p>Precompilation provides a significant performance boost because
+             it's not necessary to parse the templates over and over again.
+             The boost is especially noticeable when templates that include
+             other templates are used.</p>
+                    <p>Comparison of modification times of the main template and all
+             included templates is used to ensure that the precompiled
+             templates are up-to-date. Templates are also recompiled if the
+             htmltmpl module is updated.</p>
+                    <p>The <em>TemplateError</em>exception is raised when the precompiled
+             template cannot be saved. Precompilation is enabled by default.</p>
+                    <p>Precompilation is available only on UNIX and Windows platforms,
+             because proper file locking which is necessary to ensure
+             multitask safe behaviour is platform specific and is not
+             implemented for other platforms. Attempts to enable precompilation
+             on the other platforms result in raise of the
+             <em>TemplateError</em> exception.</p>
+                </li>
+                <li>
+                  <p><strong>comments</strong></p>
+                  <p><strong><em>Enable or disable template comments.</em></strong></p>
+                    <p>This optional parameter can be used to enable or disable
+             template comments.
+             Disabling of the comments can improve performance a bit.
+             Comments are enabled by default.</p>
+                </li>
+                <li>
+                  <p><strong>gettext</strong></p>
+                  <p><strong><em>Enable or disable gettext support.</em></strong></p>
+                </li>
+                <li>
+                  <p><strong>debug</strong></p>
+                  <p><strong><em>Enable or disable debugging messages.</em></strong></p>
+                    <p>This optional parameter is a flag that can be used to enable
+             or disable debugging messages which are printed to the standard
+             error output. The debugging messages are disabled by default.</p>
+                </li>
+            </ul>
+          <hr></hr>
+
+          
+          <!-- method update -->
+          
+          <h3>METHOD: <a name="method-TemplateManager_update"></a>
+update()</h3>
+          <p>
+            <strong><em>Update (recompile) a compiled template.</em></strong>
+            <small>(class
+              <a href="#class-TemplateManager">TemplateManager</a>)
+            </small>
+          </p>
+            <p>This method recompiles a template compiled from a file.
+             If precompilation is enabled then the precompiled form saved on
+             disk is also updated.</p>
+   
+            <p><strong>RETURN VALUE:</strong></p>
+            <p>Recompiled template.
+            It's ensured that the returned template is up-to-date.</p>
+
+          <!-- parameters of method update -->
+
+          <p><strong>PARAMETERS:</strong></p>
+          <pre>update(template)</pre>                
+                
+            <ul>
+                <li>
+                  <p><strong>template</strong></p>
+                  <p><strong><em>A compiled template.</em></strong></p>
+                    <p>This parameter should be an instance of the <em>Template</em>
+             class, created either by the <em>TemplateManager</em> or by the
+             <em>TemplateCompiler</em>. The instance must represent a template
+             compiled from a file on disk.</p>
+                </li>
+            </ul>
+          <hr></hr>
+
+          
+          <!-- method prepare -->
+          
+          <h3>METHOD: <a name="method-TemplateManager_prepare"></a>
+prepare()</h3>
+          <p>
+            <strong><em>Preprocess, parse, tokenize and compile the template.</em></strong>
+            <small>(class
+              <a href="#class-TemplateManager">TemplateManager</a>)
+            </small>
+          </p>
+            <p>If precompilation is enabled then this method tries to load
+             a precompiled form of the template from the same directory
+             in which the template source file is located. If it succeeds,
+             then it compares modification times stored in the precompiled
+             form to modification times of source files of the template,
+             including source files of all templates included via the
+             <em>TMPL_INCLUDE</em> statements. If any of the modification times
+             differs, then the template is recompiled and the precompiled
+             form updated.</p>
+            <p>If precompilation is disabled, then this method parses and
+             compiles the template.</p>
+   
+            <p><strong>RETURN VALUE:</strong></p>
+            <p>Compiled template.
+            The methods returns an instance of the <em>Template</em> class
+            which is a compiled form of the template. This instance can be
+            used as input for the <em>TemplateProcessor</em>.</p>
+
+          <!-- parameters of method prepare -->
+
+          <p><strong>PARAMETERS:</strong></p>
+          <pre>prepare(file)</pre>                
+                
+            <ul>
+                <li>
+                  <p><strong>file</strong></p>
+                  <p><strong><em>Path to the template file to prepare.</em></strong></p>
+                    <p>The method looks for the template file in current directory
+             if the parameter is a relative path. All included templates must
+             be placed in subdirectory <strong>'inc'</strong> of the 
+             directory in which the main template file is located.</p>
+                </li>
+            </ul>
+          <hr></hr>
+
+        <hr></hr>
+
+    </body>
+  </html>

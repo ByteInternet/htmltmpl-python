@@ -1,0 +1,28 @@
+<html>
+    <head>
+        <title><TMPL_VAR title></title>
+    </head>
+    <body>
+        <h1>Customers:</h1>
+        <p>
+            Total: <TMPL_VAR Customers> 
+        </p>
+
+        ### this comment will be removed
+
+        <table>
+            <TMPL_LOOP Customers>
+                <tr>
+                    <TMPL_IF new>
+                        <td>new customer</td>
+                    <TMPL_ELSE>
+                        <td>old customer</td>
+                    </TMPL_IF>
+                    <td><TMPL_VAR __PASS__></td>
+                    <td><TMPL_VAR name></td>
+                    <td><TMPL_VAR city></td>
+                </tr>
+            </TMPL_LOOP>
+        </table>
+    </body>
+</html>

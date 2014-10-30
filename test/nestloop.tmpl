@@ -1,0 +1,43 @@
+<html>
+<head>
+  <title><TMPL_VAR title></title>
+</head>
+
+<body>
+    <h1><TMPL_VAR greeting></h1>
+    <pre>
+    OK are: LOOP1
+                LOOP2 (2x)
+                LOOP4
+                    LOOP6 (3x)
+            LOOP1
+                LOOP3 (2x)
+                LOOP5
+    </pre>
+
+    <TMPL_LOOP Loop1>
+        <p>LOOP1</p>
+        
+        <TMPL_LOOP Loop2>
+            <p>LOOP2</p>
+        </TMPL_LOOP>
+        
+        <TMPL_LOOP Loop3>
+            <p>LOOP3</p>
+        </TMPL_LOOP>
+        
+        <TMPL_LOOP Loop4>
+            <p>LOOP4</p>
+            <TMPL_LOOP Loop6>
+                <p>LOOP6</p>
+            </TMPL_LOOP>
+        </TMPL_LOOP>
+        
+        <TMPL_LOOP Loop5>
+            <p>LOOP5</p>
+        </TMPL_LOOP>
+        
+    </TMPL_LOOP>
+  
+</body>
+</html>

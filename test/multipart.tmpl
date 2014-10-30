@@ -1,0 +1,53 @@
+<html>
+    <head>
+        <title><TMPL_VAR title></title>
+    </head>    
+    <body>
+        <h1><TMPL_VAR greeting></h1>   ### Comment should be removed.
+        
+        <TMPL_BOUNDARY>
+
+        <h1>Total boys: <TMPL_VAR Boys></h1>
+        <table>
+            <TMPL_LOOP Boys>
+                <tr>
+                    <td>
+                        <TMPL_IF __FIRST__>
+                            first
+                        </TMPL_IF>
+                        
+                        <TMPL_IF __INNER__>
+                            inner
+                        </TMPL_IF>
+                        
+                        <TMPL_IF __LAST__>
+                            last
+                        </TMPL_IF>
+                    </td>
+                    <td>
+                        <TMPL_IF __ODD__>
+                            odd
+                        <TMPL_ELSE>
+                            even
+                        </TMPL_IF>
+                    </td>
+                    <td><TMPL_VAR __PASS__></td>
+                    <td><TMPL_VAR name></td>
+                    <td><TMPL_VAR age></td>
+                </tr>
+                <TMPL_IF __EVERY__3>
+                    <tr>
+                        <td colspan="5">EVERY third separator</td>
+                    </tr>
+                </TMPL_IF>
+            </TMPL_LOOP>
+        </table>
+
+    <TMPL_BOUNDARY>
+
+    <p>
+        Testing part 3.
+    </p>
+        
+    </body>
+</html>

@@ -1,0 +1,19 @@
+<html>
+    <head>
+        <title><TMPL_VAR title></title>
+    </head>
+    <body>
+
+        <h1>Our products</h1>
+
+        <table>
+            <TMPL_LOOP Products>
+                <tr>
+                    <td><TMPL_VAR id></td>
+                    <td><TMPL_VAR name></td>
+                </tr>
+            </TMPL_LOOP>
+        </table>
+
+    </body>
+</html>
