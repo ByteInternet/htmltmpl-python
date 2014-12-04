@@ -1,0 +1,22 @@
+<!-- SUBJECT: Mail subject for domain <TMPL_VAR NAME=DOMAIN> //-->
+
+<p>Hi there,</p>
+
+<ul>
+  <TMPL_LOOP NAME=ALL>
+  <li><TMPL_VAR NAME=FILE></li>
+  </TMPL_LOOP>
+</ul>
+
+<TMPL_IF NAME=INCOMPATIBLE>
+    <p>Incompatible files:</p>
+
+    <ul>
+      <TMPL_LOOP NAME=INCOMPATIBLE>
+      <li><TMPL_VAR NAME=FILE></li>
+      </TMPL_LOOP>
+    </ul>
+
+</TMPL_IF>
+
+<p>Bye</p>

@@ -601,21 +601,23 @@ class TemplateProcessor:
                     skip_params = 1
                     
                     # If output of current block is not disabled then append
-                    # the substitued and escaped variable to the output.
+                    # the substituted and escaped variable to the output.
                     if DISABLE_OUTPUT not in output_control:
+                        if var.upper() == var and not var.startswith("_"):
+                            var = var.lower()
                         value = str(self.find_value(var, loop_name, loop_pass,
                                                     loop_total, globalp))
                         out += self.escape(value, escape)
                         self.DEB("VAR: " + str(var))
 
                 elif token == "<TMPL_LOOP":
-                    var = tokens[i + PARAM_NAME]
+                    var = tokens[i + PARAM_NAME].lower().capitalize()
                     if not var:
                         raise TemplateError, "No identifier in <TMPL_LOOP>."
                     skip_params = 1
 
                     # Find total number of passes in this loop.
-                    passtotal = self.find_value(var, loop_name, loop_pass,
+                    passtotal = self.find_value(var.lower().capitalize(), loop_name, loop_pass,
                                                 loop_total)
                     if not passtotal: passtotal = 0
                     # Push data for this loop on the stack.
@@ -637,6 +639,8 @@ class TemplateProcessor:
 
                 elif token == "<TMPL_IF":
                     var = tokens[i + PARAM_NAME]
+                    if var.upper() == var and not var.startswith("_"):
+                        var = var.lower()
                     if not var:
                         raise TemplateError, "No identifier in <TMPL_IF>."
                     globalp = tokens[i + PARAM_GLOBAL]
