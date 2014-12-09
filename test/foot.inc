@@ -13,5 +13,4 @@ if output == res:
     print "OK"
 else:
     print "FAILED"
-    print output
     open("%s.fail" % TEST, "w").write(output)
