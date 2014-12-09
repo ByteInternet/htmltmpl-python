@@ -817,13 +817,7 @@ class TemplateProcessor:
             return globals.pop()
         else:
             # No value found.
-            if var[0].isupper():
-                # This is a loop name.
-                # Return zero, because the user wants to know number
-                # of its passes.
-                return 0
-            else:
-                return ""
+            return ""
 
     def magic_var(self, var, loop_pass, loop_total):
         """ Resolve and return value of a magic variable.
