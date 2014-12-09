@@ -44,6 +44,7 @@ import cgi          # for HTML escaping of variables
 import urllib       # for URL escaping of variables
 import cPickle      # for template compilation
 import gettext
+import codecs
 
 INCLUDE_DIR = "inc"
 
@@ -1018,7 +1019,7 @@ class TemplateCompiler:
         try:
             f = None
             try:
-                f = open(filename, "r")
+                f = codecs.open(filename, "r", encoding='utf-8')
                 data = f.read()
             except IOError, (errno, errstr):
                 raise TemplateError, "IO error while reading template '%s': "\
