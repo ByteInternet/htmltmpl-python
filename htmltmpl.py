@@ -44,6 +44,7 @@ import cgi          # for HTML escaping of variables
 import urllib       # for URL escaping of variables
 import cPickle      # for template compilation
 import gettext
+import codecs
 
 INCLUDE_DIR = "inc"
 
@@ -485,19 +486,6 @@ class TemplateProcessor:
             @param value The value to associate.
             
         """
-        # The correctness of character case is verified only for top-level
-        # variables.
-        if self.is_ordinary_var(value):
-            # template top-level ordinary variable
-            if not var.islower():
-                raise TemplateError, "Invalid variable name '%s'." % var
-        elif type(value) == ListType:
-            # template top-level loop
-            if var != var.capitalize():
-                raise TemplateError, "Invalid loop name '%s'." % var
-        else:
-            raise TemplateError, "Value of toplevel variable '%s' must "\
-                                 "be either a scalar or a list." % var
         self._vars[var] = value
         self.DEB("VALUE SET: " + str(var))
         
@@ -601,7 +589,7 @@ class TemplateProcessor:
                     skip_params = 1
                     
                     # If output of current block is not disabled then append
-                    # the substitued and escaped variable to the output.
+                    # the substituted and escaped variable to the output.
                     if DISABLE_OUTPUT not in output_control:
                         value = str(self.find_value(var, loop_name, loop_pass,
                                                     loop_total, globalp))
@@ -829,13 +817,7 @@ class TemplateProcessor:
             return globals.pop()
         else:
             # No value found.
-            if var[0].isupper():
-                # This is a loop name.
-                # Return zero, because the user wants to know number
-                # of its passes.
-                return 0
-            else:
-                return ""
+            return ""
 
     def magic_var(self, var, loop_pass, loop_total):
         """ Resolve and return value of a magic variable.
@@ -1031,7 +1013,7 @@ class TemplateCompiler:
         try:
             f = None
             try:
-                f = open(filename, "r")
+                f = codecs.open(filename, "r", encoding='utf-8')
                 data = f.read()
             except IOError, (errno, errstr):
                 raise TemplateError, "IO error while reading template '%s': "\
