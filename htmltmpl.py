@@ -1126,6 +1126,8 @@ class TemplateCompiler:
                statement.startswith("<!-- /TMPL_"):
                 # Processing statement.
                 statement = self.strip_brackets(statement)
+                statement = self.strip_ending_slash(statement)
+
                 params = re.split(r"\s+", statement)
                 tokens.append(self.find_directive(params))
                 tokens.append(self.find_name(params))
@@ -1200,10 +1202,10 @@ class TemplateCompiler:
                 buf += str[i]
             i += 1
             # end of the loop
-        
+
         if buf:
             tokens.append(buf)
-                
+
     def add_gettext_token(self, tokens, str):
         """ Append a gettext token and gettext string to the tokens array.
             @hidden
@@ -1213,7 +1215,7 @@ class TemplateCompiler:
         tokens.append(str)
         tokens.append(None)
         tokens.append(None)
-    
+
     def strip_brackets(self, statement):
         """ Strip HTML brackets (with optional HTML comments) from the
             beggining and from the end of a statement.
@@ -1224,6 +1226,9 @@ class TemplateCompiler:
             return statement[5:-4]
         else:
             return statement[1:-1]
+
+    def strip_ending_slash(self, statement):
+        return statement.rstrip(' /')
 
     def find_directive(self, params):
         """ Extract processing directive (TMPL_*) from a statement.
