@@ -1229,7 +1229,7 @@ class TemplateCompiler:
 
     def strip_ending_slash(self, statement):
         if statement.endswith('/'):
-            return re.sub('\s?/', '', statement)
+            return re.sub('\s?/$', '', statement)
         return statement
 
     def find_directive(self, params):
