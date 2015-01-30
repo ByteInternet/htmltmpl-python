@@ -1126,6 +1126,8 @@ class TemplateCompiler:
                statement.startswith("<!-- /TMPL_"):
                 # Processing statement.
                 statement = self.strip_brackets(statement)
+                statement = self.strip_ending_slash(statement)
+
                 params = re.split(r"\s+", statement)
                 tokens.append(self.find_directive(params))
                 tokens.append(self.find_name(params))
@@ -1224,6 +1226,11 @@ class TemplateCompiler:
             return statement[5:-4]
         else:
             return statement[1:-1]
+
+    def strip_ending_slash(self, statement):
+        if statement.endswith('/'):
+            return re.sub('\s?/', '', statement)
+        return statement
 
     def find_directive(self, params):
         """ Extract processing directive (TMPL_*) from a statement.
