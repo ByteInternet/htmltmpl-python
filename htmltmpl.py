@@ -455,7 +455,7 @@ class TemplateProcessor:
         # application. Use debug=1, process some template and
         # then check stderr to see how the structure looks.
         # It's modified only by set() and reset() methods.
-        self._vars = {}        
+        self._vars = CaseInsensitiveDict()
 
         # Following variables are for multipart templates.
         self._current_part = 1
@@ -827,6 +827,7 @@ class TemplateProcessor:
         """
         self.DEB("MAGIC: '%s', PASS: %d, TOTAL: %d"\
                  % (var, loop_pass, loop_total))
+        var = var.upper()
         if var == "__FIRST__":
             if loop_pass == 0:
                 return 1
@@ -1465,3 +1466,17 @@ class PrecompiledError(Exception):
         """
         Exception.__init__(self, template)
 
+
+##############################################
+#             DATA STRUCTURES                #
+##############################################
+
+class CaseInsensitiveDict(dict):
+    def __setitem__(self, key, value):
+        super(CaseInsensitiveDict, self).__setitem__(key.lower(), value)
+
+    def __getitem__(self, key):
+        return super(CaseInsensitiveDict, self).__getitem__(key.lower())
+
+    def has_key(self, key):
+        return super(CaseInsensitiveDict, self).has_key(key.lower())
