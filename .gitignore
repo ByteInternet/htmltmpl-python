@@ -2,3 +2,8 @@
 *.swp
 *.pyc
 *.fail
+
+# wheel
+build/
+dist/
+htmltmpl.egg-info/
