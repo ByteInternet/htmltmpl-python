@@ -591,7 +591,7 @@ class TemplateProcessor:
                     # If output of current block is not disabled then append
                     # the substituted and escaped variable to the output.
                     if DISABLE_OUTPUT not in output_control:
-                        value = str(self.find_value(var, loop_name, loop_pass,
+                        value = unicode(self.find_value(var, loop_name, loop_pass,
                                                     loop_total, globalp))
                         out += self.escape(value, escape)
                         self.DEB("VAR: " + str(var))
