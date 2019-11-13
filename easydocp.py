@@ -11,8 +11,6 @@ import symbol
 import token
 import types
 
-from types import ListType, TupleType
-
 
 def get_docs(fileName):
     """Retrieve information from the parse tree of a source file.
@@ -138,10 +136,10 @@ def match(pattern, data, vars=None):
     """
     if vars is None:
         vars = {}
-    if type(pattern) is ListType:       # 'variables' are ['varname']
+    if isinstance(pattern, list):       # 'variables' are ['varname']
         vars[pattern[0]] = data
         return 1, vars
-    if type(pattern) is not TupleType:
+    if isinstance(pattern, tuple):
         return (pattern == data), vars
     if len(data) != len(pattern):
         return 0, vars

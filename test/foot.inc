@@ -1,4 +1,5 @@
 
+import os
 import codecs
 
 output += tproc.process(template)
@@ -9,10 +10,10 @@ if "out" in sys.argv:
 
 res = codecs.open("%s.res" % TEST, 'r', encoding='utf-8').read()
 
-print TEST, "...",
+print("%s..." % TEST)
 
 if output == res:
-    print "OK"
+    print("OK")
 else:
-    print "FAILED"
-    open("%s.fail" % TEST, "w").write(output.encode('utf-8'))
+    print("FAILED")
+    open("%s.fail" % TEST, "w").write(output)
