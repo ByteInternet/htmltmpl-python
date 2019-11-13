@@ -327,13 +327,13 @@ class Easydoc:
         """ Print debugging message to stderr if debugging is enabled.
             @hidden
         """
-        if self._debug: print >> sys.stderr, str
+        if self._debug: print(str, file=sys.stderr)
 
     def warn(self, warning):
         """ Print a warning to stderr.
             @hidden
         """
-        print >> sys.stderr, warning
+        print(warning, file=sys.stderr)
 
     def mangle(self, str):
         """ Strip leading and trailing whitespace. Convert URL to hyperlink.

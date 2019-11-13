@@ -28,4 +28,4 @@ customers.append(customer)
 tproc.set("Customers", customers)
 
 # Print the processed template.
-print tproc.process(template)
+print(tproc.process(template))

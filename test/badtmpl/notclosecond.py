@@ -1,4 +1,4 @@
 #!/usr/bin/env python
 
 TEST = "notclosecond"
-execfile("head.inc")
+exec(compile(open("head.inc", "rb").read(), "head.inc", 'exec'))

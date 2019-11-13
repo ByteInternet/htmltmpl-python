@@ -3,7 +3,7 @@
 import time
 
 TEST = "multipart"
-execfile("head.inc")
+exec(compile(open("head.inc", "rb").read(), "head.inc", 'exec'))
 
 #######################################################
 
@@ -33,4 +33,4 @@ output += tproc.process(template, 2)
 
 #######################################################
 
-execfile("foot.inc")
+exec(compile(open("foot.inc", "rb").read(), "foot.inc", 'exec'))

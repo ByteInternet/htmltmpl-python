@@ -1,5 +1,5 @@
 #!/usr/bin/env python
 
 TEST = "notcloseloop"
-execfile("head.inc")
+exec(compile(open("head.inc", "rb").read(), "head.inc", 'exec'))
 

@@ -1,11 +1,11 @@
 #!/usr/bin/env python
 
 TEST = "byte_missing_variable"
-execfile("head.inc")
+exec(compile(open("head.inc", "rb").read(), "head.inc", 'exec'))
 
 #######################################################
 
 
 #######################################################
 
-execfile("foot.inc")
+exec(compile(open("foot.inc", "rb").read(), "foot.inc", 'exec'))

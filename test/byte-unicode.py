@@ -2,8 +2,8 @@
 # coding: utf-8
 
 TEST = "byte-unicode"
-execfile("head.inc")
+exec(compile(open("head.inc", "rb").read(), "head.inc", 'exec'))
 
-tproc.set('UNICODEVAR', u'café')
+tproc.set('UNICODEVAR', 'café')
 
-execfile("foot.inc")
+exec(compile(open("foot.inc", "rb").read(), "foot.inc", 'exec'))

@@ -51,11 +51,11 @@ if "out" in sys.argv:
 
 res = open("%s.res" % TEST).read()
 
-print TEST, "...",
+print(TEST, "...", end=' ')
 
 if output == res and os.access("%s.tmplc" % TEST, os.R_OK):
-    print "OK"
+    print("OK")
     os.remove("%s.tmplc" % TEST)
 else:
-    print "FAILED"
+    print("FAILED")
     open("%s.fail" % TEST, "w").write(output)
