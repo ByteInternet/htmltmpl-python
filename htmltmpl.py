@@ -607,6 +607,7 @@ class TemplateProcessor:
                     # Find total number of passes in this loop.
                     passtotal = self.find_value(var, loop_name, loop_pass,
                                                 loop_total)
+
                     if not passtotal: passtotal = 0
                     # Push data for this loop on the stack.
                     loop_total.append(passtotal)
@@ -791,6 +792,7 @@ class TemplateProcessor:
         # Recursively search in self._vars for the requested variable.
         scope = self._vars
         globals = []
+
         for i in range(len(loop_name)):
             # If global lookup is on then push the value on the stack.
             if ((self._global_vars and global_override != "0") or \
@@ -1473,10 +1475,10 @@ class PrecompiledError(Exception):
 
 class CaseInsensitiveDict(dict):
     def __setitem__(self, key, value):
-        super(CaseInsensitiveDict, self).__setitem__(key.lower(), value)
+        super().__setitem__(key.lower(), value)
 
     def __getitem__(self, key):
-        return super(CaseInsensitiveDict, self).__getitem__(key.lower())
+        return super().__getitem__(key.lower())
 
-    def has_key(self, key):
-        return key.lower() in super(CaseInsensitiveDict, self)
+    def __contains__(self, key):
+        return super().__contains__(key.lower())

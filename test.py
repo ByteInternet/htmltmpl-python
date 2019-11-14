@@ -23,6 +23,7 @@ if os.linesep != "\n":
 # Exec all .py files located in the "test" directory.
 scripts = [x for x in os.listdir(".") if x.find(".py") != -1]
 scripts.sort()
+
 for i in range(len(scripts)):
     print(i+1, "...", end=' ')
     exec(compile(open(scripts[i], "rb").read(), scripts[i], 'exec'))
