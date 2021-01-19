@@ -68,4 +68,4 @@ db.close()
 tproc.set("Products", products)
         
 # Process the template and print the result.
-print tproc.process(template)
+print(tproc.process(template))

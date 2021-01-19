@@ -301,26 +301,26 @@ def main():
     out.close()
 
 def help(error=""):
-    print "easydoc for Python, version", easydoc.VERSION
-    print "(c) 2001 Tomas Styblo, tripie@cpan.org"
-    print
-    if error: print error
-    print
-    print "easy <module> <output> [--template]"
-    print "                       [--with-hidden]"
-    print "                       [--bgcolor]"
-    print "                       [--textcolor]"
-    print "                       [--linkcolor]"
-    print "                       [--methodbg]"
-    print
-    print "     <module>      : filename of the module to document"
-    print "     <output>      : output file"
-    print "     --template    : alternative template filename"
-    print "     --with-hidden : include sections marked as @hidden"
-    print "     --bgcolor     : background color"
-    print "     --textcolor   : text color"
-    print "     --linkcolor   : hyperlink color"
-    print "     --methodbg    : background color of method names"
+    print("easydoc for Python, version", easydoc.VERSION)
+    print("(c) 2001 Tomas Styblo, tripie@cpan.org")
+    print()
+    if error: print(error)
+    print()
+    print("easy <module> <output> [--template]")
+    print("                       [--with-hidden]")
+    print("                       [--bgcolor]")
+    print("                       [--textcolor]")
+    print("                       [--linkcolor]")
+    print("                       [--methodbg]")
+    print()
+    print("     <module>      : filename of the module to document")
+    print("     <output>      : output file")
+    print("     --template    : alternative template filename")
+    print("     --with-hidden : include sections marked as @hidden")
+    print("     --bgcolor     : background color")
+    print("     --textcolor   : text color")
+    print("     --linkcolor   : hyperlink color")
+    print("     --methodbg    : background color of method names")
     sys.exit()
 
 main()

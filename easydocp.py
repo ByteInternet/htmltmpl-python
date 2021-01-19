@@ -11,8 +11,6 @@ import symbol
 import token
 import types
 
-from types import ListType, TupleType
-
 
 def get_docs(fileName):
     """Retrieve information from the parse tree of a source file.
@@ -63,7 +61,7 @@ class SuiteInfoBase:
         return self._name
 
     def get_class_names(self):
-        return self._class_info.keys()
+        return list(self._class_info.keys())
 
     def get_class_info(self, name):
         return self._class_info[name]
@@ -79,7 +77,7 @@ class SuiteFuncInfo:
     #  Mixin class providing access to function names and info.
 
     def get_function_names(self):
-        return self._function_info.keys()
+        return list(self._function_info.keys())
 
     def get_function_info(self, name):
         return self._function_info[name]
@@ -97,7 +95,7 @@ class ClassInfo(SuiteInfoBase):
         SuiteInfoBase.__init__(self, tree and tree[-1] or None)
 
     def get_method_names(self):
-        return self._function_info.keys()
+        return list(self._function_info.keys())
 
     def get_method_info(self, name):
         return self._function_info[name]
@@ -138,10 +136,10 @@ def match(pattern, data, vars=None):
     """
     if vars is None:
         vars = {}
-    if type(pattern) is ListType:       # 'variables' are ['varname']
+    if isinstance(pattern, list):       # 'variables' are ['varname']
         vars[pattern[0]] = data
         return 1, vars
-    if type(pattern) is not TupleType:
+    if isinstance(pattern, tuple):
         return (pattern == data), vars
     if len(data) != len(pattern):
         return 0, vars

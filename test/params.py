@@ -1,14 +1,13 @@
 #!/usr/bin/env python
 
 TEST = "params"
-execfile("head.inc")
+exec(compile(open("head.inc", "rb").read(), "head.inc", 'exec'))
 
 #######################################################
-
 tproc.set("title", "Template world.")
 tproc.set("greeting", "Hello <HTML> world !")
 tproc.set("Loop", [ {} ])
 
 #######################################################
 
-execfile("foot.inc")
+exec(compile(open("foot.inc", "rb").read(), "foot.inc", 'exec'))
