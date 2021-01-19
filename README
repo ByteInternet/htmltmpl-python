@@ -1,7 +1,4 @@
 
-    <h1>This repository has been archived</h1>
-    This repository only supports python2.7 and is no longer maintained. For python3 see https://github.com/rkday/htmltmpl or use a different templating solution.
-    
     htmltmpl
     ========
     A Python based templating engine for separation of code and HTML.
