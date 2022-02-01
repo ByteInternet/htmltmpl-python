@@ -50,12 +50,13 @@ INCLUDE_DIR = "inc"
 
 # Total number of possible parameters.
 # Increment if adding a parameter to any statement.
-PARAMS_NUMBER = 3
+PARAMS_NUMBER = 4
 
 # Relative positions of parameters in TemplateCompiler.tokenize().
 PARAM_NAME = 1
 PARAM_ESCAPE = 2
 PARAM_GLOBAL = 3
+PARAM_VALUE = 4
 PARAM_GETTEXT_STRING = 1
 
 # Find a way to lock files. Currently implemented only for UNIX and windows.
@@ -631,9 +632,11 @@ class TemplateProcessor:
                     if not var:
                         raise TemplateError("No identifier in <TMPL_IF>.")
                     globalp = tokens[i + PARAM_GLOBAL]
+                    valuep = tokens[i + PARAM_VALUE]
                     skip_params = 1
-                    if self.find_value(var, loop_name, loop_pass,
-                                       loop_total, globalp):
+                    valuef = self.find_value(var, loop_name, loop_pass,
+                                             loop_total, globalp)
+                    if valuef and (valuep is None or valuep == str(valuef)):
                         output_control.append(ENABLE_OUTPUT)
                         self.DEB("IF: ENABLE: " + str(var))
                     else:
@@ -1136,6 +1139,7 @@ class TemplateCompiler:
                 tokens.append(self.find_name(params))
                 tokens.append(self.find_param("ESCAPE", params))
                 tokens.append(self.find_param("GLOBAL", params))
+                tokens.append(self.find_param("VALUE", params))
             else:
                 # "Normal" template data.
                 if self._gettext:
