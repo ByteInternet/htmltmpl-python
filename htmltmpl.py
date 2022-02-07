@@ -889,7 +889,7 @@ class TemplateProcessor:
         """ Escape a string either by HTML escaping or by URL escaping.
             @hidden
         """
-        ESCAPE_QUOTES = 1
+        ESCAPE_QUOTES = True
         if (self._html_escape and override != "NONE" and override != "0" and \
             override != "URL") or override == "HTML" or override == "1":
             return html.escape(str, ESCAPE_QUOTES)
