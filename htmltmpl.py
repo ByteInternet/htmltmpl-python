@@ -40,7 +40,7 @@ import os.path
 import pprint       # only for debugging
 import sys
 import copy
-import cgi          # for HTML escaping of variables
+import html          # for HTML escaping of variables
 import urllib.request, urllib.parse, urllib.error       # for URL escaping of variables
 import pickle      # for template compilation
 import gettext
@@ -889,10 +889,10 @@ class TemplateProcessor:
         """ Escape a string either by HTML escaping or by URL escaping.
             @hidden
         """
-        ESCAPE_QUOTES = 1
+        ESCAPE_QUOTES = True
         if (self._html_escape and override != "NONE" and override != "0" and \
             override != "URL") or override == "HTML" or override == "1":
-            return cgi.escape(str, ESCAPE_QUOTES)
+            return html.escape(str, ESCAPE_QUOTES)
         elif override == "URL":
             return urllib.parse.quote_plus(str)
         else:
